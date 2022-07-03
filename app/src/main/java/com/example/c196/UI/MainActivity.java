@@ -16,8 +16,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void enterHere(View view) {
+    public void viewTerms(View view) {
         Intent intent = new Intent(MainActivity.this, TermList.class);
+        startActivity(intent);
+    }
+
+    public void viewCourses(View view) {
+        Intent intent = new Intent(MainActivity.this, CourseList.class);
+        startActivity(intent);
+    }
+
+    public void viewAssessments(View view) {
+        Intent intent = new Intent(MainActivity.this, AssessmentsList.class);
         startActivity(intent);
     }
 }
