@@ -91,4 +91,18 @@ public class Course {
         this.courseOptionalNotes = courseOptionalNotes;
         this.termId = termId;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", courseStart=" + courseStart +
+                ", courseEnd=" + courseEnd +
+                ", courseStatus='" + courseStatus + '\'' +
+                ", instructorId=" + instructorId +
+                ", courseOptionalNotes='" + courseOptionalNotes + '\'' +
+                ", termId=" + termId +
+                '}';
+    }
 }

@@ -51,4 +51,14 @@ public class Term {
     public Date getTermEnd() {
         return termEnd;
     }
+
+    @Override
+    public String toString() {
+        return "Term{" +
+                "termId=" + termId +
+                ", termName='" + termName + '\'' +
+                ", termStart=" + termStart +
+                ", termEnd=" + termEnd +
+                '}';
+    }
 }

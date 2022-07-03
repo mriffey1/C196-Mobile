@@ -49,4 +49,14 @@ public class Instructor {
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
     }
+
+    @Override
+    public String toString() {
+        return "Instructor{" +
+                "instructorId=" + instructorId +
+                ", instructorName='" + instructorName + '\'' +
+                ", instructorPhone='" + instructorPhone + '\'' +
+                ", instructorEmail='" + instructorEmail + '\'' +
+                '}';
+    }
 }
