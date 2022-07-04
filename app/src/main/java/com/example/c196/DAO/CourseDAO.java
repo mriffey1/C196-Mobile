@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.c196.Enitiy.Course;
+import com.example.c196.Entity.Course;
 
 import java.util.List;
 

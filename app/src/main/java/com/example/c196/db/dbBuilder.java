@@ -5,17 +5,19 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.example.c196.DAO.AssessmentDAO;
 import com.example.c196.DAO.CourseDAO;
 import com.example.c196.DAO.InstructorDAO;
 import com.example.c196.DAO.TermDAO;
-import com.example.c196.Enitiy.Assessment;
-import com.example.c196.Enitiy.Course;
-import com.example.c196.Enitiy.Instructor;
-import com.example.c196.Enitiy.Term;
+import com.example.c196.Entity.Assessment;
+import com.example.c196.Entity.Course;
+import com.example.c196.Entity.Instructor;
+import com.example.c196.Entity.Term;
 
-@Database(entities = {Term.class, Instructor.class, Assessment.class, Course.class}, version = 1, exportSchema = false)
+@Database(entities={Assessment.class, Course.class, Term.class, Instructor.class}, version=1, exportSchema = false)
+@TypeConverters(DateConverter.class)
 public abstract class dbBuilder extends RoomDatabase {
     public abstract TermDAO termDAO();
 
@@ -27,11 +29,12 @@ public abstract class dbBuilder extends RoomDatabase {
 
     private static volatile dbBuilder INSTANCE;
 
+
     static dbBuilder getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (dbBuilder.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), dbBuilder.class, "c196db")
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), dbBuilder.class, "c196Database")
                             .fallbackToDestructiveMigration()
                             .build();
                 }
@@ -39,4 +42,5 @@ public abstract class dbBuilder extends RoomDatabase {
         }
         return INSTANCE;
     }
+
 }

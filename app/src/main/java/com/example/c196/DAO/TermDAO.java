@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.c196.Enitiy.Term;
+import com.example.c196.Entity.Term;
 
 import java.util.List;
 
