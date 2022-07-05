@@ -8,9 +8,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.c196.Entity.Assessment;
+import com.example.c196.Entity.Course;
+import com.example.c196.Entity.Instructor;
+import com.example.c196.Entity.Term;
 import com.example.c196.R;
 import com.example.c196.db.Repository;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {

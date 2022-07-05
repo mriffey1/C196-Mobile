@@ -6,13 +6,17 @@
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.4055" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/drawable/ic_baseline_ac_unit_24.xml" value="0.255" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/drawable/ic_launcher_background.xml" value="0.255" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout-land/activity_main.xml" value="0.2791005291005291" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_add_assessment.xml" value="0.4363636212309535" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_assessments_list.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_course_list.xml" value="0.4578125" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_detailed_assessments.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_detailed_course.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_detailed_term.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_term_list.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_term_list.xml" value="0.541704857928506" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/assessment_list_item.xml" value="0.23324275362318841" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/term_list_item.xml" value="0.2536231884057971" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu-land/action_bar_menu.xml" value="0.2625" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu/action_bar_menu.xml" value="0.2484375" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu/menu_term_list.xml" value="0.44722222222222224" />

@@ -34,13 +34,29 @@
             android:label="Assessments"
             android:exported="false" />
         <activity
+            android:name=".UI.AddAssessment"
+            android:parentActivityName=".UI.AssessmentsList"
+            android:label="Assessments"
+            android:windowSoftInputMode="stateHidden"
+            android:exported="false" />
+        <activity
             android:name=".UI.CourseList"
             android:parentActivityName=".UI.MainActivity"
             android:label="Courses"
             android:exported="false" />
         <activity
+            android:name=".UI.AddCourse"
+            android:parentActivityName=".UI.CourseList"
+            android:label="Courses"
+            android:exported="false" />
+        <activity
             android:name=".UI.TermList"
             android:parentActivityName=".UI.MainActivity"
+            android:label="Term List"
+            android:exported="false" />
+        <activity
+            android:name=".UI.AddTerm"
+            android:parentActivityName=".UI.TermList"
             android:label="Term List"
             android:exported="false" />
         <activity
