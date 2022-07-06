@@ -1,5 +1,6 @@
 package com.example.c196.UI;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 
@@ -9,7 +10,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +38,11 @@ public class AddAssessment extends AppCompatActivity {
     final Calendar calendarEnd = Calendar.getInstance();
     DatePickerDialog.OnDateSetListener listenEnd;
 
+    // Formatter for dates
+    String format = "MM/dd/yy";
+    SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +56,11 @@ public class AddAssessment extends AppCompatActivity {
         assessId = getIntent().getIntExtra("id", -1);
         textTitle = findViewById(R.id.textTitle);
         // Calendar's for Start and End Date
+
+
         startDate = findViewById(R.id.startDate);
         addEndDate = findViewById(R.id.addEndDate);
         button4 = findViewById(R.id.button4);
-        String format = "MM/dd/yy";
-        SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
         startDate.setText("select an start date");
         addEndDate.setText("select an end date");
         startDate.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +68,7 @@ public class AddAssessment extends AppCompatActivity {
             public void onClick(View view) {
                 String info = startDate.getText().toString();
                 try {
-                    calendarStart.setTime(format1.parse(info));
+                    calendarStart.setTime((Date) format1.parse(info));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -116,8 +121,7 @@ public class AddAssessment extends AppCompatActivity {
                 String title = textTitle.getText().toString();
                 int courseId = 0;
                 String type = typeSpinner.getSelectedItem().toString();
-                String format = "MM/dd/yy";
-                SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
+
                 String dateStart = startDate.getText().toString();
                 String dateEnd = addEndDate.getText().toString();
                 Date finalStart = null;
@@ -125,16 +129,10 @@ public class AddAssessment extends AppCompatActivity {
 
                 try {
                     finalStart = format1.parse(dateStart);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                try {
                     finalEnd = format1.parse(dateEnd);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-
                 Assessment assessment = new Assessment(newId, title, finalStart, finalEnd, type, courseId);
                 repo.insert(assessment);
             }
