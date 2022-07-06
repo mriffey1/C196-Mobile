@@ -17,21 +17,25 @@
             android:name=".UI.DetailedAssessments"
             android:parentActivityName=".UI.AssessmentsList"
             android:label="Detailed Assessment"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.DetailedTerm"
             android:parentActivityName=".UI.TermList"
             android:label="Detailed Term Information"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.DetailedCourse"
             android:parentActivityName=".UI.CourseList"
             android:label="Detailed Course Information"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AssessmentsList"
             android:parentActivityName=".UI.MainActivity"
             android:label="Assessments"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AddAssessment"
@@ -43,21 +47,25 @@
             android:name=".UI.CourseList"
             android:parentActivityName=".UI.MainActivity"
             android:label="Courses"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AddCourse"
             android:parentActivityName=".UI.CourseList"
             android:label="Courses"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.TermList"
             android:parentActivityName=".UI.MainActivity"
             android:label="Term List"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AddTerm"
             android:parentActivityName=".UI.TermList"
             android:label="Term List"
+            android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.MainActivity"

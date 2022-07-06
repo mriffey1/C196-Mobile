@@ -2,4 +2,9 @@
     <string name="app_name">C196 Courses</string>
     <string name="no_data_terms">Currently, no Terms exist. \n\nPlease create a new term by selecting the + button on the lower right hand corner. </string>
     <string name="no_data_assessments">Currently, no assessments exist. \n\nPlease create a new assessment by selecting the + button on the lower right hand corner. </string>
+
+    <string-array name="addAssessType">
+        <item>Objective</item>
+        <item>Performance</item>
+    </string-array>
 </resources>
