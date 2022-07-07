@@ -49,14 +49,14 @@
             app:layout_constraintTop_toBottomOf="@+id/editTitle" />
 
         <EditText
-            android:id="@+id/editStartDate"
+            android:id="@+id/startDateTerm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="16dp"
+            android:focusableInTouchMode="false"
             android:ems="10"
-            android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -71,15 +71,16 @@
             android:text="End Date:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editStartDate" />
+            app:layout_constraintTop_toBottomOf="@+id/startDateTerm" />
 
         <EditText
-            android:id="@+id/editEndDate"
+            android:id="@+id/endDateTerm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="7dp"
             android:layout_marginEnd="16dp"
+            android:focusableInTouchMode="false"
             android:ems="10"
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +111,7 @@
             android:text="Courses:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editEndDate" />
+            app:layout_constraintTop_toBottomOf="@+id/endDateTerm" />
 
         <Button
             android:id="@+id/addCourseBtn"
@@ -135,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/saveTermBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="162dp"

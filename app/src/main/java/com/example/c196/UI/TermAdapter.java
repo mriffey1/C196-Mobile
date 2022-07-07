@@ -19,6 +19,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     class TermViewHolder extends RecyclerView.ViewHolder {
         private final TextView termItemView;
 
+
         private TermViewHolder(View itemView) {
             super(itemView);
             termItemView = itemView.findViewById(R.id.textView2);
@@ -31,8 +32,8 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     Intent intent = new Intent(context, DetailedTerm.class);
                     intent.putExtra("id", current.getTermId());
                     intent.putExtra("title", current.getTermName());
-                    intent.putExtra("start", current.getTermStart());
-                    intent.putExtra("end", current.getTermEnd());
+                    intent.putExtra("start", current.getTermStart().getTime());
+                    intent.putExtra("end", current.getTermEnd().getTime());
                     context.startActivity(intent);
                 }
             });

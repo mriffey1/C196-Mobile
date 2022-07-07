@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, CourseList.class);
         startActivity(intent);
         Repository repo = new Repository(getApplication());
+     //   Date start = new Date(22/10/10);
+      //  Date end = new Date(22/10/10);
+      //  Course course = new Course(2, "Test2", start, end, "Open", 0, null, 0 );
+      //  repo.insert(course);
     }
 
     public void viewAssessments(View view) {

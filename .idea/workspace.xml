@@ -7,18 +7,23 @@
       </config>
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c291ac5-12d1-4e73-b96f-ab9a113834a8" name="Changes" comment="assessment add has been created">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_term.xml" afterDir="false" />
+    <list default="true" id="5c291ac5-12d1-4e73-b96f-ab9a113834a8" name="Changes" comment="adding term add">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Course.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddAssessment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddAssessment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddTerm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/CourseAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/CourseAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedTerm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/TermAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/TermAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_term.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_term.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detailed_term.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detailed_term.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,8 +60,8 @@
         <option value="Interface" />
         <option value="resourceFile" />
         <option value="valueResourceFile" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -70,7 +75,6 @@
   </component>
   <component name="ProblemsViewState">
     <option name="proportion" value="0.40118667" />
-    <option name="selectedIndex" value="1" />
     <option name="showPreview" value="true" />
   </component>
   <component name="ProjectId" id="2BMDCBYOFv0IdDfv0QWMLUzJW7b" />
@@ -87,7 +91,7 @@
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/OneDrive_2022-07-04/C196 Dates and Typeconverters/TypeconverterNew/Typeconverter" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.-859378880">
@@ -260,7 +264,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657137900080</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="adding term add">
+      <created>1657146213396</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1657146213396</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -285,6 +296,7 @@
     <MESSAGE value="updating and creating detail forms" />
     <MESSAGE value="course view is up" />
     <MESSAGE value="assessment add has been created" />
-    <option name="LAST_COMMIT_MESSAGE" value="assessment add has been created" />
+    <MESSAGE value="adding term add" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding term add" />
   </component>
 </project>
