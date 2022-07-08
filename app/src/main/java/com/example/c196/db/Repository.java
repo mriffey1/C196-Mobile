@@ -25,6 +25,7 @@ public class Repository {
     private List<Course> mAllCourses;
     private List<Instructor> mAllInstructors;
     private List<Term> mAllTerms;
+    private List<Course> mAssocTermCourses;
 
     private static int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -52,6 +53,18 @@ public class Repository {
     public List<Course> getCourses() {
         databaseExecutor.execute(() -> {
             mAllCourses = mCourseDAO.getCourses();
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mAllCourses;
+    }
+
+    public List<Course> getAssocTermCourses(int termId) {
+        databaseExecutor.execute(() -> {
+            mAssocTermCourses = mCourseDAO.getAssocTermCourses(termId);
         });
         try {
             Thread.sleep(1000);
