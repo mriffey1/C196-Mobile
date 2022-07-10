@@ -60,6 +60,8 @@ public class AddTerm extends AppCompatActivity {
         startDateTerm = findViewById(R.id.startDateTerm);
         endDateTerm = findViewById(R.id.endDateTerm);
         courseSpinner = findViewById(R.id.courseSpinner);
+        termId = getIntent().getIntExtra("id", -1);
+        System.out.println("This term ID for a new Add is " + termId);
 
         List<Course> courseList = repository.getCourses();
         ArrayAdapter<Course> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
@@ -89,6 +91,7 @@ public class AddTerm extends AppCompatActivity {
         termAddCourseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (selectedCourseList.contains(selectedCourse)) {
                     return;
                 } else {

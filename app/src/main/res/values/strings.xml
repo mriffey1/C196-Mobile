@@ -7,4 +7,12 @@
         <item>Objective</item>
         <item>Performance</item>
     </string-array>
+
+
+    <string-array name="courseStatusString">
+        <item>Completed</item>
+        <item>Dropped</item>
+        <item>In Progress</item>
+        <item>Plan to Take</item>
+    </string-array>
 </resources>

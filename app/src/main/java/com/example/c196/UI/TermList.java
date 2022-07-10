@@ -53,6 +53,7 @@ public class TermList extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                System.out.println(item.getItemId());
                 return true;
         }
         return super.onOptionsItemSelected(item);

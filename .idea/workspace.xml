@@ -14,13 +14,16 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c291ac5-12d1-4e73-b96f-ab9a113834a8" name="Changes" comment="adding term add">
+    <list default="true" id="5c291ac5-12d1-4e73-b96f-ab9a113834a8" name="Changes" comment="updated">
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddInstructor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_course.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/DAO/CourseDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/DAO/CourseDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/CourseList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/CourseList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedTerm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/db/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/db/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detailed_term.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detailed_term.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Instructor.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Instructor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddCourse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/AddTerm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/TermList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/TermList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +90,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/OneDrive_2022-07-04/C196 Dates and Typeconverters/TypeconverterNew/Typeconverter" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/c196-master (1)/c196-master" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
   </component>
   <component name="RecentsManager">
@@ -275,7 +278,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657228386988</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="updated">
+      <created>1657309281883</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1657309281883</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -301,6 +311,7 @@
     <MESSAGE value="course view is up" />
     <MESSAGE value="assessment add has been created" />
     <MESSAGE value="adding term add" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding term add" />
+    <MESSAGE value="updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated" />
   </component>
 </project>
