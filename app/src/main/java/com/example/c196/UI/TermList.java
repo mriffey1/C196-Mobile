@@ -28,7 +28,6 @@ public class TermList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RecyclerView recyclerView = findViewById(R.id.recycleview);
         emptyView = (TextView) findViewById(R.id.empty_view);
-
         Repository repository = new Repository(getApplication());
         List<Term> terms = repository.getTerms();
         final TermAdapter adapter = new TermAdapter(this);

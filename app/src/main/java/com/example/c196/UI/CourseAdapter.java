@@ -32,8 +32,8 @@ public class CourseAdapter extends RecyclerView.Adapter<com.example.c196.UI.Cour
                         Intent intent = new Intent(context, DetailedCourse.class);
                         intent.putExtra("id", current.getCourseId());
                         intent.putExtra("title", current.getCourseName());
-                        intent.putExtra("start", current.getCourseStart());
-                        intent.putExtra("end", current.getCourseEnd());
+                        intent.putExtra("start", current.getCourseStart().getTime());
+                        intent.putExtra("end", current.getCourseEnd().getTime());
                         intent.putExtra("type", current.getCourseStatus());
                         intent.putExtra("notes", current.getCourseOptionalNotes());
                         intent.putExtra("instructorId", current.getInstructorId());

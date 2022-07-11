@@ -99,7 +99,6 @@ public class DetailedTerm extends AppCompatActivity {
 
         }
         RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
-        associatedCoursesView.setHasFixedSize(true);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         associatedCoursesView.setAdapter(courseAdapter);
         associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
@@ -152,10 +151,6 @@ public class DetailedTerm extends AppCompatActivity {
             }
         };
 
-        associatedCoursesView.setHasFixedSize(true);
-        associatedCoursesView.setAdapter(courseAdapter);
-        associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(selectedCourseList);
 
         termAddCourseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,12 +179,7 @@ public class DetailedTerm extends AppCompatActivity {
         addTermSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int termId = 0;
-                if (repository.getTerms().size() == 0) {
-                    termId = 1;
-                } else {
-                    termId = repository.getTerms().get(repository.getTerms().size() - 1).getTermId() + 1;
-                }
+
 
                 String title = termTitle.getText().toString();
                 String dateStart = startDateTerm.getText().toString();

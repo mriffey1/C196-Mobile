@@ -1,5 +1,6 @@
 package com.example.c196.UI;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.example.c196.db.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -49,6 +51,7 @@ public class AddCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
+
         courseTitle = findViewById(R.id.courseTitle);
         courseStartDate = findViewById(R.id.courseStartDate);
         courseEndDate = findViewById(R.id.courseEndDate);
@@ -65,27 +68,37 @@ public class AddCourse extends AppCompatActivity {
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseStatus.setAdapter(statusAdapter);
 
-        // Spinner for Instructors
-        List<Instructor> instructorList = repository.getInstructors();
-        ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseInstructor.setAdapter(typeAdapter);
-
-        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedInstructor = instructorList.get(i).getInstructorId();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
         newInstructor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddCourse.this, AddInstructor.class);
+            //    Intent intent = new Intent(AddCourse.this, AddInstructor.class);
+
                 startActivity(intent);
+            }
+        });
+
+        // Spinner for Instructors
+
+        List<Instructor> instructorList = repository.getInstructors();
+        ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
+        courseInstructor.getAdapter();
+        courseInstructor.setAdapter(typeAdapter);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+
+
+        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedInstructor = instructorList.get(i).getInstructorId();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
         courseStartDate.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +153,7 @@ public class AddCourse extends AppCompatActivity {
             public void onClick(View view) {
                 int courseId = 0;
                 if (repository.getCourses().size() == 0) {
-                    courseId = 0;
+                    courseId = 1;
                 } else {
                     courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
                 }
@@ -165,10 +178,9 @@ public class AddCourse extends AppCompatActivity {
                 Intent intent = new Intent(AddCourse.this, CourseList.class);
                 startActivity(intent);
             }
-
-
         });
     }
+
 
 
     // Method to update labels for start and end date
@@ -183,4 +195,6 @@ public class AddCourse extends AppCompatActivity {
             courseEndDate.setText(format1.format(calendarEnd.getTime()));
         }
     }
+
+
 }

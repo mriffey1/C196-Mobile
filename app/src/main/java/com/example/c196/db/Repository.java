@@ -71,7 +71,7 @@ public class Repository {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return mAllCourses;
+        return mAssocTermCourses;
     }
 
     public List<Instructor> getInstructors() {

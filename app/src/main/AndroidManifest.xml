@@ -16,7 +16,7 @@
         <activity
             android:name=".UI.DetailedAssessments"
             android:parentActivityName=".UI.AssessmentsList"
-            android:label="Detailed Assessment"
+            android:label="Detailed Assessment information"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
@@ -34,25 +34,31 @@
         <activity
             android:name=".UI.AssessmentsList"
             android:parentActivityName=".UI.MainActivity"
-            android:label="Assessments"
+            android:label="Assessment List"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AddAssessment"
             android:parentActivityName=".UI.AssessmentsList"
-            android:label="Assessments"
+            android:label="Add New Assessment"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.CourseList"
             android:parentActivityName=".UI.MainActivity"
-            android:label="Courses"
+            android:label="Course List"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AddCourse"
             android:parentActivityName=".UI.CourseList"
-            android:label="Courses"
+            android:label="Add New Course"
+            android:windowSoftInputMode="stateHidden"
+            android:exported="false" />
+        <activity
+            android:name=".UI.AddInstructor"
+            android:parentActivityName=".UI.AddCourse"
+            android:label="Add New Instructor"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
