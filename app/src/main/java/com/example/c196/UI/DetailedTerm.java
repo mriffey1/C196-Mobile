@@ -1,9 +1,5 @@
 package com.example.c196.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +10,10 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Term;
@@ -93,11 +93,7 @@ public class DetailedTerm extends AppCompatActivity {
             }
         });
         List<Course> assocCourseList = repository.getAssocTermCourses(termId);
-        List<Course> selectedCourseList = new ArrayList<>();
-        for (int i = 0; assocCourseList.size() > i; i++) {
-            selectedCourseList.add(assocCourseList.get(i));
-
-        }
+        List<Course> selectedCourseList = new ArrayList<>(assocCourseList);
         RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         associatedCoursesView.setAdapter(courseAdapter);
@@ -152,56 +148,46 @@ public class DetailedTerm extends AppCompatActivity {
         };
 
 
-        termAddCourseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (selectedCourseList.contains(selectedCourse)) {
-                    return;
-                } else {
-                    selectedCourseList.add(selectedCourse);
+        termAddCourseBtn.setOnClickListener(view -> {
+            if (selectedCourseList.contains(selectedCourse)) {
+                return;
+            } else {
+                selectedCourseList.add(selectedCourse);
+                courseAdapter.setCourses(selectedCourseList);
+                courseAdapter.notifyDataSetChanged();
+            }
+        });
+        termRemoveCourseBtn.setOnClickListener(view -> {
+            for (int i = 0; selectedCourseList.size() > i; i++) {
+                if (selectedCourseList.get(i).getCourseId() == selectedCourse.getCourseId()) {
+                    int id = selectedCourseList.get(i).getCourseId();
+                    selectedCourseList.remove(i);
                     courseAdapter.setCourses(selectedCourseList);
                     courseAdapter.notifyDataSetChanged();
                 }
             }
         });
-        termRemoveCourseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for (int i = 0; selectedCourseList.size() > i; i++) {
-                    if (selectedCourseList.get(i).getCourseId() == selectedCourse.getCourseId()) {
-                        selectedCourseList.remove(i);
-                        courseAdapter.setCourses(selectedCourseList);
-                        courseAdapter.notifyDataSetChanged();
-                    }
-                }
+        addTermSaveBtn.setOnClickListener(view -> {
+            updatingCourseTermId(selectedCourse, 0);
+            String title = termTitle.getText().toString();
+            String dateStart = startDateTerm.getText().toString();
+            String dateEnd = endDateTerm.getText().toString();
+            Date finalStart = null;
+            Date finalEnd = null;
+            try {
+                finalStart = format1.parse(dateStart);
+                finalEnd = format1.parse(dateEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
-        });
-        addTermSaveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-
-                String title = termTitle.getText().toString();
-                String dateStart = startDateTerm.getText().toString();
-                String dateEnd = endDateTerm.getText().toString();
-                Date finalStart = null;
-                Date finalEnd = null;
-
-                try {
-                    finalStart = format1.parse(dateStart);
-                    finalEnd = format1.parse(dateEnd);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                Term term = new Term(termId, title, finalStart, finalEnd);
-                repository.update(term);
-
-                for (int i = 0; selectedCourseList.size() > i; i++) {
-                    updatingCourseTermId(selectedCourseList.get(i), termId);
-                }
-                Intent intent = new Intent(DetailedTerm.this, TermList.class);
-                startActivity(intent);
+            for (int i = 0; selectedCourseList.size() > i; i++) {
+                updatingCourseTermId(selectedCourseList.get(i), termId);
             }
+            Term term = new Term(termId, title, finalStart, finalEnd);
+            repository.update(term);
+            Intent intent = new Intent(DetailedTerm.this, TermList.class);
+            startActivity(intent);
         });
 
 
@@ -225,7 +211,7 @@ public class DetailedTerm extends AppCompatActivity {
             String format = "MM/dd/yy";
             SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             startDateTerm.setText(format1.format(calendarStart.getTime()));
-        } else if (!value) {
+        } else {
             String format = "MM/dd/yy";
             SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             endDateTerm.setText(format1.format(calendarEnd.getTime()));
