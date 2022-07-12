@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.c196.Entity.Assessment;
 import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Instructor;
 import com.example.c196.R;
@@ -36,6 +37,7 @@ public class DetailedCourse extends AppCompatActivity {
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
     EditText courseStartDate;
     EditText courseEndDate;
+    EditText courseTitle;
     TextView instructNameField;
     TextView instructPhoneField;
     TextView instructEmailField;
@@ -50,14 +52,14 @@ public class DetailedCourse extends AppCompatActivity {
     int instructorId;
     int selectedInstructor;
     int courseId;
-    Course course;
+    Course updatingCourse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_course);
 
-       EditText courseTitle = findViewById(R.id.courseTitle);
+        courseTitle = findViewById(R.id.courseTitle);
         courseStartDate = findViewById(R.id.courseStartDate);
         courseEndDate = findViewById(R.id.courseEndDate);
         courseStatus = findViewById(R.id.courseStatus);
@@ -74,7 +76,7 @@ public class DetailedCourse extends AppCompatActivity {
         String notes = getIntent().getStringExtra("notes");
         courseNotes.setText(notes);
         title = getIntent().getStringExtra("title");
-        courseTitle.setText(title);
+
 
         // Converting database value for start date to string
         Long start = getIntent().getLongExtra("start", -1);
@@ -88,51 +90,16 @@ public class DetailedCourse extends AppCompatActivity {
         String endString = format1.format(endDate);
         courseEndDate.setText(endString);
 
-        newInstructor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailedCourse.this, AddInstructor.class);
-                startActivity(intent);
-            }
-        });
-
-        // Spinner for Instructors
-        List<Instructor> instructorList = repository.getInstructors();
-        ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
-        courseInstructor.getAdapter();
-        courseInstructor.setAdapter(typeAdapter);
-        for (int i = 0; instructorList.size() > i; i++) {
-            if (instructorList.get(i).getInstructorId() == instructorId) {
-                courseInstructor.setSelection(i);
+        for (Course course : repository.getCourses()) {
+            if (course.getCourseId() == courseId) {
+                updatingCourse = course;
             }
         }
-
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedInstructor = instructorList.get(i).getInstructorId();
-                String name = instructorList.get(i).getInstructorName();
-                String phone = instructorList.get(i).getInstructorPhone();
-                String email = instructorList.get(i).getInstructorEmail();
-                instructNameField.setText(name);
-                instructPhoneField.setText(phone);
-                instructEmailField.setText(email);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        // Spinner for Course Status
-        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.courseStatusString, android.R.layout.simple_spinner_dropdown_item);
-        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseStatus.setAdapter(statusAdapter);
-        String currentStatus = getIntent().getStringExtra("type");
-        int intStatus = statusAdapter.getPosition(currentStatus);
-        courseStatus.setSelection(intStatus);
-
-
+        if (updatingCourse != null) {
+            courseTitle.setText(title);
+            courseStartDate.setText(startString);
+            courseEndDate.setText(endString);
+        }
         courseStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,6 +146,84 @@ public class DetailedCourse extends AppCompatActivity {
                 updateLabel(false);
             }
         };
+
+        newInstructor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailedCourse.this, AddInstructor.class);
+                startActivity(intent);
+            }
+        });
+
+        // Spinner for Instructors
+        List<Instructor> instructorList = repository.getInstructors();
+        ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
+        courseInstructor.getAdapter();
+        courseInstructor.setAdapter(typeAdapter);
+        for (int i = 0; instructorList.size() > i; i++) {
+            if (instructorList.get(i).getInstructorId() == instructorId) {
+                courseInstructor.setSelection(i);
+            }
+        }
+
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedInstructor = instructorList.get(i).getInstructorId();
+                String name = instructorList.get(i).getInstructorName();
+                String phone = instructorList.get(i).getInstructorPhone();
+                String email = instructorList.get(i).getInstructorEmail();
+                instructNameField.setText(name);
+                instructPhoneField.setText(phone);
+                instructEmailField.setText(email);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        // Spinner for Course Status
+        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.courseStatusString, android.R.layout.simple_spinner_dropdown_item);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseStatus.setAdapter(statusAdapter);
+        String currentStatus = getIntent().getStringExtra("type");
+        int intStatus = statusAdapter.getPosition(currentStatus);
+        courseStatus.setSelection(intStatus);
+        courseSaveBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                String title = courseTitle.getText().toString();
+                String dateStart = courseStartDate.getText().toString();
+                String dateEnd = courseEndDate.getText().toString();
+                Date finalStart = null;
+                Date finalEnd = null;
+                String status = courseStatus.getSelectedItem().toString();
+                String notes = courseNotes.getText().toString();
+                int termId = 0;
+                try {
+                    finalStart = format1.parse(dateStart);
+                    finalEnd = format1.parse(dateEnd);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (repository.getCourses().size() == 0) {
+                    courseId = 1;
+                    Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, termId);
+                    repository.insert(course);
+                } else if (courseId != -1) {
+                    Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, termId);
+                    repository.update(course);
+                } else {
+                    courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
+                    Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, termId);
+                    repository.insert(course);
+                }
+
+                Intent intent = new Intent(DetailedCourse.this, CourseList.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // Method to update labels for start and end date
