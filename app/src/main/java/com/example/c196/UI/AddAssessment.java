@@ -22,7 +22,46 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
+// PROBABLY NO LONGER NEED
 
 public class AddAssessment extends AppCompatActivity {
     int assessId;
@@ -49,7 +88,7 @@ public class AddAssessment extends AppCompatActivity {
         setContentView(R.layout.activity_add_assessment);
 
         // Spinner for Objective/Performance
-        Spinner typeSpinner = (Spinner) findViewById(R.id.addAssessType);
+        Spinner typeSpinner = (Spinner) findViewById(R.id.assessmentType);
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this, R.array.addAssessType, android.R.layout.simple_spinner_dropdown_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSpinner.setAdapter(typeAdapter);
@@ -58,9 +97,9 @@ public class AddAssessment extends AppCompatActivity {
         // Calendar's for Start and End Date
 
 
-        startDate = findViewById(R.id.startDate);
-        addEndDate = findViewById(R.id.addEndDate);
-        button4 = findViewById(R.id.button4);
+        startDate = findViewById(R.id.startDateAssess);
+        addEndDate = findViewById(R.id.endDateAssess);
+        button4 = findViewById(R.id.saveBtn);
         startDate.setText("select an start date");
         addEndDate.setText("select an end date");
         startDate.setOnClickListener(new View.OnClickListener() {

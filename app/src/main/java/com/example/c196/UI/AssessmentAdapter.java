@@ -31,8 +31,8 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     Intent intent = new Intent(context, DetailedAssessments.class);
                     intent.putExtra("id", current.getAssessmentId());
                     intent.putExtra("title", current.getAssessmentTitle());
-                    intent.putExtra("start", current.getAssessmentStart());
-                    intent.putExtra("end", current.getAssessmentEnd());
+                    intent.putExtra("start", current.getAssessmentStart().getTime());
+                    intent.putExtra("end", current.getAssessmentEnd().getTime());
                     intent.putExtra("type", current.getAssessmentType());
                     intent.putExtra("cid", current.getCourseId());
                     context.startActivity(intent);
@@ -40,6 +40,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             });
         }
     }
+
     private List<Assessment> mAssessments;
     private final Context context;
     private final LayoutInflater mInflater;

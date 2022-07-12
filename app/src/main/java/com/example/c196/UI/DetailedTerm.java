@@ -48,6 +48,7 @@ public class DetailedTerm extends AppCompatActivity {
     Button addTermSaveBtn;
     int termId;
     Course selectedCourse;
+    Term updatingTerm;
 
 
     @Override
@@ -63,43 +64,30 @@ public class DetailedTerm extends AppCompatActivity {
         addTermSaveBtn = findViewById(R.id.addTermSaveBtn);
         termId = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
-        termTitle.setText(title);
+        //    termTitle.setText(title);
 
         // Converting database value for start date to string
         Long start = getIntent().getLongExtra("start", -1);
         startDate = new Date(start);
         String startString = format1.format(startDate);
-        startDateTerm.setText(startString);
+
 
         // Converting database value for end date to string
         Long end = getIntent().getLongExtra("end", -1);
         endDate = new Date(end);
         String endString = format1.format(endDate);
-        endDateTerm.setText(endString);
 
-        List<Course> courseList = repository.getCourses();
-        ArrayAdapter<Course> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseSpinner.setAdapter(typeAdapter);
 
-        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedCourse = courseList.get(i);
+        for (Term term : repository.getTerms()) {
+            if (term.getTermId() == termId) {
+                updatingTerm = term;
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
-        List<Course> assocCourseList = repository.getAssocTermCourses(termId);
-        List<Course> selectedCourseList = new ArrayList<>(assocCourseList);
-        RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
-        final CourseAdapter courseAdapter = new CourseAdapter(this);
-        associatedCoursesView.setAdapter(courseAdapter);
-        associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(selectedCourseList);
-
+        }
+        if (updatingTerm != null) {
+            termTitle.setText(title);
+            startDateTerm.setText(startString);
+            endDateTerm.setText(endString);
+        }
         startDateTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,6 +136,29 @@ public class DetailedTerm extends AppCompatActivity {
         };
 
 
+        List<Course> courseList = repository.getCourses();
+        ArrayAdapter<Course> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseSpinner.setAdapter(typeAdapter);
+
+        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedCourse = courseList.get(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        List<Course> assocCourseList = repository.getAssocTermCourses(termId);
+        List<Course> selectedCourseList = new ArrayList<>(assocCourseList);
+        RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        associatedCoursesView.setAdapter(courseAdapter);
+        associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
+        courseAdapter.setCourses(selectedCourseList);
+
         termAddCourseBtn.setOnClickListener(view -> {
             if (selectedCourseList.contains(selectedCourse)) {
                 return;
@@ -184,8 +195,16 @@ public class DetailedTerm extends AppCompatActivity {
             for (int i = 0; selectedCourseList.size() > i; i++) {
                 updatingCourseTermId(selectedCourseList.get(i), termId);
             }
-            Term term = new Term(termId, title, finalStart, finalEnd);
-            repository.update(term);
+            if (termId != -1) {
+                Term term = new Term(termId, title, finalStart, finalEnd);
+                repository.update(term);
+            } else {
+                termId = repository.getTerms().get(repository.getTerms().size() - 1).getTermId() + 1;
+                updatingCourseTermId(selectedCourse, termId);
+                Term term = new Term(termId, title, finalStart, finalEnd);
+                repository.insert(term);
+            }
+
             Intent intent = new Intent(DetailedTerm.this, TermList.class);
             startActivity(intent);
         });

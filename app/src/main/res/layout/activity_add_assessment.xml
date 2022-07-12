@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
         <EditText
-            android:id="@+id/startDate"
+            android:id="@+id/startDateAssess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -61,10 +61,10 @@
         android:textSize="16sp"
         android:text="End Date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startDate" />
+        app:layout_constraintTop_toBottomOf="@+id/startDateAssess" />
 
         <EditText
-            android:id="@+id/addEndDate"
+            android:id="@+id/endDateAssess"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/labelEnd" />
 
         <Spinner
-            android:id="@+id/addAssessType"
+            android:id="@+id/assessmentType"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
@@ -98,10 +98,10 @@
         android:text="Type"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addEndDate" />
+        app:layout_constraintTop_toBottomOf="@+id/endDateAssess" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/saveBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="43dp"
@@ -111,7 +111,7 @@
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addAssessType" />
+        app:layout_constraintTop_toBottomOf="@+id/assessmentType" />
 
         <TextView
             android:id="@+id/textView3"

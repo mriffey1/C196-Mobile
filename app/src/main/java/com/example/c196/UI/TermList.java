@@ -1,6 +1,7 @@
 package com.example.c196.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import java.util.List;
 public class TermList extends AppCompatActivity {
     private TextView emptyView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +29,15 @@ public class TermList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         RecyclerView recyclerView = findViewById(R.id.recycleview);
+
         emptyView = (TextView) findViewById(R.id.empty_view);
         Repository repository = new Repository(getApplication());
         List<Term> terms = repository.getTerms();
         final TermAdapter adapter = new TermAdapter(this);
         recyclerView.setAdapter(adapter);
+
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setTerms(terms);
         if (terms.isEmpty()) {
@@ -60,7 +66,7 @@ public class TermList extends AppCompatActivity {
 
 
     public void addTerm(View view) {
-        Intent intent = new Intent(TermList.this, AddTerm.class);
+        Intent intent = new Intent(TermList.this, DetailedTerm.class);
         startActivity(intent);
     }
 }

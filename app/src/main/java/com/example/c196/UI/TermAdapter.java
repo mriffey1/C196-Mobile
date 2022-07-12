@@ -10,19 +10,34 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.c196.DAO.CourseDAO;
+import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Term;
 import com.example.c196.R;
+import com.example.c196.db.Repository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
-    class TermViewHolder extends RecyclerView.ViewHolder {
-        private final TextView termItemView;
 
+    class TermViewHolder extends RecyclerView.ViewHolder {
+        private final TextView termTitleList;
+        private final TextView termDatesList;
+
+
+        Course courses;
+        Date start;
 
         private TermViewHolder(View itemView) {
             super(itemView);
-            termItemView = itemView.findViewById(R.id.textView2);
+            termTitleList = itemView.findViewById(R.id.textView2);
+            termDatesList = itemView.findViewById(R.id.textView18);
+
+
             itemView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -30,6 +45,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
                     int position = getAdapterPosition();
                     final Term current = mTerms.get(position);
                     Intent intent = new Intent(context, DetailedTerm.class);
+
                     intent.putExtra("id", current.getTermId());
                     intent.putExtra("title", current.getTermName());
                     intent.putExtra("start", current.getTermStart().getTime());
@@ -41,6 +57,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     }
 
     private List<Term> mTerms;
+    private List<Course> mCourses;
     private final Context context;
     private final LayoutInflater mInflater;
 
@@ -59,11 +76,23 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     @Override
     public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position) {
         if (mTerms != null) {
+            String format = "MM/dd/yy";
+            SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             Term current = mTerms.get(position);
+
+
             String title = current.getTermName();
-            holder.termItemView.setText(title);
+            Date start = current.getTermStart();
+            Date end = current.getTermEnd();
+            String startString = format1.format(start);
+            String endString = format1.format(end);
+            String date = startString + " - " + endString;
+
+            holder.termTitleList.setText(title);
+            holder.termDatesList.setText(date);
+
         } else {
-            holder.termItemView.setText("No title");
+            holder.termTitleList.setText("No title");
         }
     }
 
