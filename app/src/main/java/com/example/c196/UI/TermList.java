@@ -1,7 +1,6 @@
 package com.example.c196.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -50,7 +49,7 @@ public class TermList extends AppCompatActivity {
     }
 
     public boolean onCreationOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_term_list, menu);
+        getMenuInflater().inflate(R.menu.term_action_bar, menu);
         return true;
     }
 

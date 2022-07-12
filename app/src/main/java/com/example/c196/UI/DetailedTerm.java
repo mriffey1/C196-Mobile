@@ -3,6 +3,9 @@ package com.example.c196.UI;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,7 +13,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,11 +54,49 @@ public class DetailedTerm extends AppCompatActivity {
     int termId;
     Course selectedCourse;
     Term updatingTerm;
+    Button deleteBtn;
+    Menu menu;
+    boolean existingTerm = false;
+    boolean value;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.term_action_bar, menu);
+        if (!existingTerm) {
+            menu.findItem(R.id.deleteBtn).setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteBtn:
+                int count = 0;
+                for (Course course : repository.getCourses()) {
+                    if (course.getTermId() == termId) {
+                        ++count;
+                    }
+                }
+                if (count == 0) {
+                    Term term = new Term(termId, title, startDate, endDate);
+                    Toast.makeText(this, "Term has been deleted", Toast.LENGTH_LONG).show();
+                    repository.delete(term);
+                    Intent intent = new Intent(DetailedTerm.this, TermList.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(this, "Unable to delete. Term has assigned courses. Please remove courses, save, and try again.", Toast.LENGTH_LONG).show();
+
+                }
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        deleteBtn = findViewById(R.id.deleteBtn);
         setContentView(R.layout.activity_detailed_term);
         termTitle = findViewById(R.id.termTitle);
         startDateTerm = findViewById(R.id.startDateTerm);
@@ -84,9 +127,12 @@ public class DetailedTerm extends AppCompatActivity {
             }
         }
         if (updatingTerm != null) {
+            existingTerm = true;
             termTitle.setText(title);
             startDateTerm.setText(startString);
             endDateTerm.setText(endString);
+        } else {
+            existingTerm = false;
         }
         startDateTerm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +211,7 @@ public class DetailedTerm extends AppCompatActivity {
             } else {
                 selectedCourseList.add(selectedCourse);
                 courseAdapter.setCourses(selectedCourseList);
+                Toast.makeText(this, "Course added.", Toast.LENGTH_LONG).show();
                 courseAdapter.notifyDataSetChanged();
             }
         });
@@ -174,10 +221,13 @@ public class DetailedTerm extends AppCompatActivity {
                     int id = selectedCourseList.get(i).getCourseId();
                     selectedCourseList.remove(i);
                     courseAdapter.setCourses(selectedCourseList);
+                    Toast.makeText(this, "Course removed.", Toast.LENGTH_LONG).show();
                     courseAdapter.notifyDataSetChanged();
                 }
             }
         });
+
+
         addTermSaveBtn.setOnClickListener(view -> {
             updatingCourseTermId(selectedCourse, 0);
             String title = termTitle.getText().toString();
@@ -204,12 +254,9 @@ public class DetailedTerm extends AppCompatActivity {
                 Term term = new Term(termId, title, finalStart, finalEnd);
                 repository.insert(term);
             }
-
             Intent intent = new Intent(DetailedTerm.this, TermList.class);
             startActivity(intent);
         });
-
-
     }
 
     private void updatingCourseTermId(Course course, int termId) {
@@ -236,4 +283,5 @@ public class DetailedTerm extends AppCompatActivity {
             endDateTerm.setText(format1.format(calendarEnd.getTime()));
         }
     }
+
 }

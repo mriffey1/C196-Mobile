@@ -61,7 +61,7 @@ public class CourseList extends AppCompatActivity {
 
 
     public boolean onCreationOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_term_list, menu);
+        getMenuInflater().inflate(R.menu.term_action_bar, menu);
         return true;
     }
 }

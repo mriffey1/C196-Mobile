@@ -20,6 +20,7 @@ import com.example.c196.Entity.Instructor;
 import com.example.c196.R;
 import com.example.c196.db.Repository;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -82,13 +83,12 @@ public class DetailedCourse extends AppCompatActivity {
         Long start = getIntent().getLongExtra("start", -1);
         startDate = new Date(start);
         String startString = format1.format(startDate);
-        courseStartDate.setText(startString);
+
 
         // Converting database value for end date to string
         Long end = getIntent().getLongExtra("end", -1);
         endDate = new Date(end);
         String endString = format1.format(endDate);
-        courseEndDate.setText(endString);
 
         for (Course course : repository.getCourses()) {
             if (course.getCourseId() == courseId) {
@@ -190,7 +190,6 @@ public class DetailedCourse extends AppCompatActivity {
         int intStatus = statusAdapter.getPosition(currentStatus);
         courseStatus.setSelection(intStatus);
         courseSaveBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 String title = courseTitle.getText().toString();
@@ -198,8 +197,10 @@ public class DetailedCourse extends AppCompatActivity {
                 String dateEnd = courseEndDate.getText().toString();
                 Date finalStart = null;
                 Date finalEnd = null;
+              //  String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
                 String status = courseStatus.getSelectedItem().toString();
                 String notes = courseNotes.getText().toString();
+
                 int termId = 0;
                 try {
                     finalStart = format1.parse(dateStart);
@@ -219,7 +220,6 @@ public class DetailedCourse extends AppCompatActivity {
                     Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, termId);
                     repository.insert(course);
                 }
-
                 Intent intent = new Intent(DetailedCourse.this, CourseList.class);
                 startActivity(intent);
             }

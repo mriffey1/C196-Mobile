@@ -64,6 +64,7 @@ public class CourseAdapter extends RecyclerView.Adapter<com.example.c196.UI.Cour
             if (mCourses != null) {
                 Course current = mCourses.get(position);
                 String title = current.getCourseName();
+
                 holder.courseItemView.setText(title);
             } else {
                 holder.courseItemView.setText("No title");

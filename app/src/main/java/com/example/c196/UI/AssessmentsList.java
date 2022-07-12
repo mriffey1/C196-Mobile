@@ -12,11 +12,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.c196.Entity.Assessment;
-import com.example.c196.Entity.Term;
 import com.example.c196.R;
 import com.example.c196.db.Repository;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class AssessmentsList extends AppCompatActivity {
@@ -46,7 +44,7 @@ public class AssessmentsList extends AppCompatActivity {
     }
 
     public boolean onCreationOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_term_list, menu);
+        getMenuInflater().inflate(R.menu.term_action_bar, menu);
         return true;
     }
 
