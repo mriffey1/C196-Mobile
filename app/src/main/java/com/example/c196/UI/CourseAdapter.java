@@ -25,12 +25,8 @@ public class CourseAdapter extends RecyclerView.Adapter<com.example.c196.UI.Cour
 
 
     class CourseViewHolder extends RecyclerView.ViewHolder {
-        private final TextView courseItemView;
-        private final TextView courseDateList;
-        private final TextView courseEndDateList;
-        TextView courseTermName;
-        String stringName;
-        Repository repository;
+        private final TextView courseItemView, courseDateList, courseEndDateList, courseTermName, courseStatus;
+
 
 
         private CourseViewHolder(View itemView) {
@@ -39,6 +35,7 @@ public class CourseAdapter extends RecyclerView.Adapter<com.example.c196.UI.Cour
             courseTermName = itemView.findViewById(R.id.term_name);
             courseDateList = itemView.findViewById(R.id.termStartDatesList);
             courseEndDateList = itemView.findViewById(R.id.courseEndDateList);
+            courseStatus = itemView.findViewById(R.id.courseStatus);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -82,6 +79,7 @@ public class CourseAdapter extends RecyclerView.Adapter<com.example.c196.UI.Cour
             SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             Course current = mCourses.get(position);
             String courseListTitle = current.getCourseName();
+            String status = current.getCourseStatus();
             Date start = current.getCourseStart();
             Date end = current.getCourseEnd();
             String startString = "Start Date: " + format1.format(start);
@@ -89,6 +87,7 @@ public class CourseAdapter extends RecyclerView.Adapter<com.example.c196.UI.Cour
 
             String date = startString + " - " + endString;
             holder.courseItemView.setText(courseListTitle);
+            holder.courseStatus.setText(status);
             holder.courseDateList.setText(startString);
             holder.courseEndDateList.setText(endString);
 

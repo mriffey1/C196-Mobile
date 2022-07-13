@@ -42,29 +42,19 @@ public class DetailedCourse extends AppCompatActivity {
     final Calendar calendarEnd = Calendar.getInstance();
     String format = "MM/dd/yy";
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
-    EditText courseStartDate;
-    EditText courseEndDate;
-    EditText courseTitle;
-    TextView instructNameField;
-    TextView instructPhoneField;
-    TextView instructEmailField;
-    Spinner courseStatus;
-    Spinner courseInstructor;
-    EditText courseNotes;
-    Button courseSaveBtn;
-    Button newInstructor;
-    Date startDate;
-    Date endDate;
+
+
+    EditText courseStartDate, courseEndDate, courseTitle, courseNotes;
+    TextView instructNameField, instructPhoneField, instructEmailField;
+    Spinner courseStatus, courseInstructor, termCourseSpinner;
+    Button courseSaveBtn, newInstructor;
+    Date startDate, endDate;
     String title;
-    int instructorId;
-    int selectedInstructor;
-    int courseId;
+    int instructorId, selectedInstructor, courseId, termId, selectedTerm;
     Course updatingCourse;
     Boolean existingCourse;
     ImageView shareNotes;
-    int termId;
-    Spinner termCourseSpinner;
-    int selectedTerm;
+
 
     /* Creating menu to display the delete button when modifying an existing entry only */
     @Override
@@ -82,38 +72,30 @@ public class DetailedCourse extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteBtn:
-                int count = 0;
-                for (Term term : repository.getTerms()) {
-                    if (term.getTermId() == termId) {
-                        ++count;
-                    }
-                }
-                if (count == 0) {
-                    String status = courseStatus.getSelectedItem().toString();
-                    String notes = courseNotes.getText().toString();
-                    Course course = new Course(courseId, title, startDate, endDate, status, selectedInstructor, notes, termId);
-                    Toast.makeText(this, "Course has been deleted", Toast.LENGTH_LONG).show();
-                    repository.delete(course);
-                    Intent intent = new Intent(DetailedCourse.this, CourseList.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(this, "Unable to delete. Course has assigned terms. Please remove terms, save, and try again.", Toast.LENGTH_LONG).show();
-                }
+
+                String status = courseStatus.getSelectedItem().toString();
+                String notes = courseNotes.getText().toString();
+                Course course = new Course(courseId, title, startDate, endDate, status, selectedInstructor, notes, termId);
+                Toast.makeText(this, "Course has been deleted", Toast.LENGTH_LONG).show();
+                repository.delete(course);
+                Intent intent = new Intent(DetailedCourse.this, CourseList.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_course);
-
         courseTitle = findViewById(R.id.courseTitle);
         courseStartDate = findViewById(R.id.courseStartDate);
         courseEndDate = findViewById(R.id.courseEndDate);
         courseStatus = findViewById(R.id.courseStatus);
         courseInstructor = findViewById(R.id.courseInstructor);
         courseNotes = findViewById(R.id.courseNotes);
+        shareNotes = findViewById(R.id.shareNotes);
         courseSaveBtn = findViewById(R.id.courseSaveBtn);
         newInstructor = findViewById(R.id.newInstructor);
         instructNameField = findViewById(R.id.instructNameField);
@@ -138,7 +120,6 @@ public class DetailedCourse extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedTerm = termList.get(i).getTermId();
-
             }
 
             @Override
@@ -151,7 +132,6 @@ public class DetailedCourse extends AppCompatActivity {
         Long start = getIntent().getLongExtra("start", -1);
         startDate = new Date(start);
         String startString = format1.format(startDate);
-
 
         // Converting database value for end date to string
         Long end = getIntent().getLongExtra("end", -1);
@@ -242,7 +222,8 @@ public class DetailedCourse extends AppCompatActivity {
         courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedInstructor = instructorList.get(i).getInstructorId();
+//                courseInstructor.setSelection(i);
+//                selectedInstructor = instructorList.get(i).getInstructorId();
                 String name = instructorList.get(i).getInstructorName();
                 String phone = instructorList.get(i).getInstructorPhone();
                 String email = instructorList.get(i).getInstructorEmail();
@@ -250,6 +231,7 @@ public class DetailedCourse extends AppCompatActivity {
                 instructPhoneField.setText(phone);
                 instructEmailField.setText(email);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -269,43 +251,71 @@ public class DetailedCourse extends AppCompatActivity {
         String currentStatus = getIntent().getStringExtra("type");
         int intStatus = statusAdapter.getPosition(currentStatus);
         courseStatus.setSelection(intStatus);
-        courseSaveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                String title = courseTitle.getText().toString();
-                String dateStart = courseStartDate.getText().toString();
-                String dateEnd = courseEndDate.getText().toString();
-                Date finalStart = null;
-                Date finalEnd = null;
-              //  String currentDateTimeString = DateFormat.getDateInstance().format(new Date());
-                String status = courseStatus.getSelectedItem().toString();
-                String notes = courseNotes.getText().toString();
-
-
-                try {
-                    finalStart = format1.parse(dateStart);
-                    finalEnd = format1.parse(dateEnd);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (repository.getCourses().size() == 0) {
-                    courseId = 1;
-                    Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, selectedTerm);
-                    repository.insert(course);
-                } else if (courseId != -1) {
-                    Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, selectedTerm);
-                    repository.update(course);
-                } else {
-                    courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
-                    Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes, selectedTerm);
-                    repository.insert(course);
-                }
-                Intent intent = new Intent(DetailedCourse.this, CourseList.class);
-                startActivity(intent);
+        shareNotes.setOnClickListener(view -> {
+            String sharingNotes = courseNotes.getText().toString();
+            if (courseNotes.getText().toString().isEmpty()) {
+                Toast.makeText(this, "No notes available to share. Please add note and try again.", Toast.LENGTH_LONG).show();
+                return;
             }
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, sharingNotes);
+            sendIntent.putExtra(Intent.EXTRA_TITLE, "Message Title");
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
+
+        });
+
+        courseSaveBtn.setOnClickListener(view -> {
+            String title = courseTitle.getText().toString();
+            String dateStart = courseStartDate.getText().toString();
+            String dateEnd = courseEndDate.getText().toString();
+            Date finalStart = null;
+            Date finalEnd = null;
+            String status = courseStatus.getSelectedItem().toString();
+            String notes1 = courseNotes.getText().toString();
+
+            try {
+                finalStart = format1.parse(dateStart);
+                finalEnd = format1.parse(dateEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (termList.size() == 0) {
+                Toast.makeText(this, "Please add a term first before creating a course.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (courseTitle.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter a course title.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (finalStart == null || finalEnd == null) {
+                Toast.makeText(this, "Please check your start and end date", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (courseInstructor == null) {
+                Toast.makeText(this, "Please add an instructor.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (repository.getCourses().size() == 0) {
+                courseId = 1;
+                Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                repository.insert(course);
+            } else if (courseId != -1) {
+                Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                repository.update(course);
+            } else {
+                courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
+                Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                repository.insert(course);
+            }
+            Intent intent = new Intent(DetailedCourse.this, CourseList.class);
+            startActivity(intent);
         });
     }
+
     public void onRestart() {
         super.onRestart();
         List<Instructor> instructorList = repository.getInstructors();

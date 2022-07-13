@@ -16,61 +16,43 @@
         <activity
             android:name=".UI.DetailedAssessments"
             android:parentActivityName=".UI.AssessmentsList"
-            android:label="Detailed Assessment information"
+            android:label="Assessment Info"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.DetailedTerm"
             android:parentActivityName=".UI.TermList"
-            android:label="Detailed Term Information"
+            android:label="Term Info"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.DetailedCourse"
             android:parentActivityName=".UI.CourseList"
-            android:label="Detailed Course Information"
+            android:label="Course Info"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AssessmentsList"
             android:parentActivityName=".UI.MainActivity"
-            android:label="Assessment List"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="false" />
-        <activity
-            android:name=".UI.AddAssessment"
-            android:parentActivityName=".UI.AssessmentsList"
-            android:label="Add New Assessment"
+            android:label="All Assessments"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.CourseList"
             android:parentActivityName=".UI.MainActivity"
-            android:label="Course List"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="false" />
-        <activity
-            android:name=".UI.AddCourse"
-            android:parentActivityName=".UI.CourseList"
-            android:label="Add New Course"
+            android:label="All Courses"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.AddInstructor"
-            android:parentActivityName=".UI.AddCourse"
-            android:label="Add New Instructor"
+            android:parentActivityName=".UI.DetailedCourse"
+            android:label="Add Instructor"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity
             android:name=".UI.TermList"
             android:parentActivityName=".UI.MainActivity"
-            android:label="Term List"
-            android:windowSoftInputMode="stateHidden"
-            android:exported="false" />
-        <activity
-            android:name=".UI.AddTerm"
-            android:parentActivityName=".UI.TermList"
-            android:label="Term List"
+            android:label="All Terms"
             android:windowSoftInputMode="stateHidden"
             android:exported="false" />
         <activity

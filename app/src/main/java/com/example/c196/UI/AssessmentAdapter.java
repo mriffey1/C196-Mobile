@@ -23,12 +23,14 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final TextView assessment_name;
         private final TextView assessment_start_date;
         private final TextView assessment_end_date;
+        private final TextView assessmentObjective;
 
         private AssessmentViewHolder(View itemView) {
             super(itemView);
             assessment_name = itemView.findViewById(R.id.assessment_name);
             assessment_start_date = itemView.findViewById(R.id.assessment_start_date);
             assessment_end_date = itemView.findViewById(R.id.assessment_end_date);
+            assessmentObjective = itemView.findViewById(R.id.assessmentObjective);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -71,12 +73,14 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             Assessment current = mAssessments.get(position);
             Date start = current.getAssessmentStart();
             Date end = current.getAssessmentEnd();
+            String typeAssess = current.getAssessmentType();
             String startString = "Start Date: " + format1.format(start);
             String endString = "End Date: " + format1.format(end);
             String title = current.getAssessmentTitle();
             holder.assessment_name.setText(title);
             holder.assessment_start_date.setText(startString);
             holder.assessment_end_date.setText(endString);
+            holder.assessmentObjective.setText(typeAssess);
         } else {
             holder.assessment_name.setText("No title");
         }

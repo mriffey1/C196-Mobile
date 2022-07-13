@@ -10,10 +10,7 @@ import com.example.c196.DAO.CourseDAO;
 import java.util.Date;
 import java.util.List;
 
-@Entity(tableName = "courses",  foreignKeys = @ForeignKey(entity = Term.class,
-        parentColumns = "termId",
-        childColumns = "termId",
-        onDelete = ForeignKey.CASCADE))
+@Entity(tableName = "courses")
 
 public class Course {
 
@@ -26,10 +23,6 @@ public class Course {
     private int instructorId;
     private String courseOptionalNotes;
     private int termId;
-
-    public Course() {
-
-    }
 
 
     public int getCourseId() {

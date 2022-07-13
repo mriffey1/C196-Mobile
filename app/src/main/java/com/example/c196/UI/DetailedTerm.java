@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,18 +49,12 @@ public class DetailedTerm extends AppCompatActivity {
     Date startDate;
     Date endDate;
     String title;
-    Spinner courseSpinner;
-    Button termRemoveCourseBtn;
-    Button termAddCourseBtn;
     Button addTermSaveBtn;
     int termId;
-    Course selectedCourse;
     Term updatingTerm;
     Button deleteBtn;
-    Term term;
-    Menu menu;
     boolean existingTerm = false;
-    boolean value;
+    private TextView emptyView;
 
     /* Creating menu to display the delete button when modifying an existing entry only */
     @Override
@@ -105,9 +100,6 @@ public class DetailedTerm extends AppCompatActivity {
         termTitle = findViewById(R.id.termTitle);
         startDateTerm = findViewById(R.id.startDateTerm);
         endDateTerm = findViewById(R.id.endDateTerm);
-        courseSpinner = findViewById(R.id.courseSpinner);
-        termAddCourseBtn = findViewById(R.id.termAddCourseBtn);
-        termRemoveCourseBtn = findViewById(R.id.termRemoveCourseBtn);
         addTermSaveBtn = findViewById(R.id.addTermSaveBtn);
         termId = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
@@ -184,73 +176,29 @@ public class DetailedTerm extends AppCompatActivity {
             }
         };
 
-//        /* Adapter for available courses to set spinner */
-//        List<Course> courseList = repository.getCourses();
-//        if (!courseList.isEmpty()){
-//            ArrayAdapter<Course> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
-//            typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//            courseSpinner.setAdapter(typeAdapter);
-//        } else {
-//            courseSpinner.setSelection(0);
-//        }
-
-
-//        /* Identifies the selected course from the spinner from the courseList */
-//        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                selectedCourse = courseList.get(i);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//            }
-//        });
 
         /* Sets lists to create an associated course list when added to the recycle view. */
         List<Course> assocCourseList = repository.getAssocTermCourses(termId);
         RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
+        emptyView = (TextView) findViewById(R.id.empty_view_term);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         associatedCoursesView.setAdapter(courseAdapter);
         associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
         courseAdapter.setCourses(assocCourseList);
-//
-//        /* Add Course button that determines whether the selected course is already present and if not,
-//         * then adds the course to the selectedCourseList */
-//        termAddCourseBtn.setOnClickListener(view -> {
-//            if (selectedCourseList.contains(selectedCourse)) {
-//                Toast.makeText(this, "Course already added.", Toast.LENGTH_LONG).show();
-//                return;
-//            } else {
-//                selectedCourseList.add(selectedCourse);
-//                courseAdapter.setCourses(selectedCourseList);
-//                Toast.makeText(this, "Course added.", Toast.LENGTH_LONG).show();
-//                courseAdapter.notifyDataSetChanged();
-//            }
-//        });
-//
-//        /* Remove Course button that determines whether the selected course is on the selectedCourseList,
-//         * and then removes the course from the list */
-//        termRemoveCourseBtn.setOnClickListener(view -> {
-//            for (int i = 0; selectedCourseList.size() > i; i++) {
-//                if (selectedCourseList.get(i).getCourseId() == selectedCourse.getCourseId()) {
-//                    int id = selectedCourseList.get(i).getCourseId();
-//                    selectedCourseList.remove(i);
-//                    courseAdapter.setCourses(selectedCourseList);
-//
-//                    Toast.makeText(this, "Course removed.", Toast.LENGTH_LONG).show();
-//                    courseAdapter.notifyDataSetChanged();
-//                } else {
-//                    Toast.makeText(this, "Course is not associated with term.", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
+        if (assocCourseList.isEmpty()) {
+            associatedCoursesView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            associatedCoursesView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
+
+
 
         /* Save button listener. On save, courses removed from the associated list will have their ID's updated to zero.
          * Also updates associated course term ID's, and determines whether this is a new term or existing term and updates
          * the termId appropriately.  */
         addTermSaveBtn.setOnClickListener(view -> {
-
             String title = termTitle.getText().toString();
             String dateStart = startDateTerm.getText().toString();
             String dateEnd = endDateTerm.getText().toString();
@@ -262,39 +210,45 @@ public class DetailedTerm extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
-
-
-            if (repository.getTerms().size() == 0){
-                termId = 1;
-                Term term = new Term(termId, title, finalStart, finalEnd);
-                repository.insert(term);
-            } else if (termId != -1) {
-                Term term = new Term(termId, title, finalStart, finalEnd);
-                repository.update(term);
+            if (termTitle.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please enter a term title", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (finalStart == null || finalEnd == null) {
+                Toast.makeText(this, "Please check your start and end date", Toast.LENGTH_LONG).show();
+                return;
             } else {
-                termId = repository.getTerms().get(repository.getTerms().size() - 1).getTermId() + 1;
-                updatingCourseTermId(selectedCourse, termId);
-                Term term = new Term(termId, title, finalStart, finalEnd);
-                repository.insert(term);
+                if (repository.getTerms().size() == 0) {
+                    termId = 1;
+                    Term term = new Term(termId, title, finalStart, finalEnd);
+                    repository.insert(term);
+                } else if (termId != -1) {
+                    Term term = new Term(termId, title, finalStart, finalEnd);
+                    repository.update(term);
+                } else {
+                    termId = repository.getTerms().get(repository.getTerms().size() - 1).getTermId() + 1;
+                    Term term = new Term(termId, title, finalStart, finalEnd);
+                    repository.insert(term);
+                }
             }
             Intent intent = new Intent(DetailedTerm.this, TermList.class);
             startActivity(intent);
         });
+
     }
 
-    /* Method to update the course termId */
-    private void updatingCourseTermId(Course course, int termId) {
-        int courseId = course.getCourseId();
-        String courseTitle = course.getCourseName();
-        Date courseStart = course.getCourseStart();
-        Date courseEnd = course.getCourseEnd();
-        String courseStatus = course.getCourseStatus();
-        int instructorId = course.getInstructorId();
-        String courseNotes = course.getCourseOptionalNotes();
-        Course course1 = new Course(courseId, courseTitle, courseStart, courseEnd, courseStatus, instructorId, courseNotes, termId);
-        repository.update(course1);
-    }
+//    /* Method to update the course termId */
+//    private void updatingCourseTermId(Course course, int termId) {
+//        int courseId = course.getCourseId();
+//        String courseTitle = course.getCourseName();
+//        Date courseStart = course.getCourseStart();
+//        Date courseEnd = course.getCourseEnd();
+//        String courseStatus = course.getCourseStatus();
+//        int instructorId = course.getInstructorId();
+//        String courseNotes = course.getCourseOptionalNotes();
+//        Course course1 = new Course(courseId, courseTitle, courseStart, courseEnd, courseStatus, instructorId, courseNotes, termId);
+//        repository.update(course1);
+//    }
 
     /* Method to update labels for start and end dates */
     private void updateLabel(boolean value) {

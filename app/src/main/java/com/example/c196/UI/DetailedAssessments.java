@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.c196.Entity.Assessment;
 import com.example.c196.Entity.Course;
@@ -73,14 +74,11 @@ public class DetailedAssessments extends AppCompatActivity {
         ArrayAdapter<Course> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         assessmentCourseSpinner.setAdapter(termAdapter);
-
         assessmentCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedCourse = courseList.get(i).getCourseId();
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -164,39 +162,49 @@ public class DetailedAssessments extends AppCompatActivity {
         String currentStatus = getIntent().getStringExtra("type");
         int intStatus = typeAdapter.getPosition(currentStatus);
         assessmentType.setSelection(intStatus);
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String title = textTitle.getText().toString();
-                String type = typeSpinner.getSelectedItem().toString();
-
-                String dateStart = startDateAssess.getText().toString();
-                String dateEnd = endDateAssess.getText().toString();
-                Date finalStart = null;
-                Date finalEnd = null;
-                try {
-                    finalStart = format1.parse(dateStart);
-                    finalEnd = format1.parse(dateEnd);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                if (repository.getAssessments().size() == 0) {
-                    assessmentId = 1;
-                    Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
-                    repository.insert(assessment);
-                } else if (assessmentId != -1){
-                    Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
-                    repository.update(assessment);
-                } else {
-                    assessmentId = repository.getAssessments().get(repository.getAssessments().size() - 1).getAssessmentId() + 1;
-                    Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
-                    repository.insert(assessment);
-                }
-
-                Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
-                startActivity(intent);
-
+        saveBtn.setOnClickListener(view -> {
+            String title = textTitle.getText().toString();
+            String type = typeSpinner.getSelectedItem().toString();
+     //       String course = assessmentCourseSpinner.getSelectedItem().toString();
+            String dateStart = startDateAssess.getText().toString();
+            String dateEnd = endDateAssess.getText().toString();
+            Date finalStart = null;
+            Date finalEnd = null;
+            try {
+                finalStart = format1.parse(dateStart);
+                finalEnd = format1.parse(dateEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+
+            if (courseList.size() == 0) {
+                Toast.makeText(this, "Please create a course before creating an assessment.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (textTitle.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Please add a assessment title.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (finalStart == null || finalEnd == null) {
+                Toast.makeText(this, "Please check your start and end date.", Toast.LENGTH_LONG).show();
+                return;
+            }
+            if (repository.getAssessments().size() == 0) {
+                assessmentId = 1;
+                Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
+                repository.insert(assessment);
+            } else if (assessmentId != -1) {
+                Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
+                repository.update(assessment);
+            } else {
+                assessmentId = repository.getAssessments().get(repository.getAssessments().size() - 1).getAssessmentId() + 1;
+                Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
+                repository.insert(assessment);
+            }
+
+            Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
+            startActivity(intent);
+
         });
 
     }

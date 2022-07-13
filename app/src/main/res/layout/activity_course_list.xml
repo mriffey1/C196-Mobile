@@ -12,9 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="39dp"
         android:layout_marginBottom="39dp"
-        android:backgroundTint="#FF9800"
+        android:backgroundTint="#458BBA"
         android:clickable="true"
         android:onClick="addCourse"
+        app:backgroundTint="@color/dark_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />

@@ -32,6 +32,4 @@ public interface CourseDAO {
     @Query("SELECT * FROM courses WHERE courseId = :courseId")
     List<Course> getAssocCourses(int courseId);
 
-    @Query("SELECT courses.*, terms.termName as term_title, terms.termStart as term_start_date, terms.termEnd as term_end_date FROM courses JOIN terms ON courses.termId = terms.termId ORDER BY terms.termStart, courses.courseStart")
-    List<Course> getAllCourseTerms();
 }

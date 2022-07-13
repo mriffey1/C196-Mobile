@@ -27,7 +27,7 @@ public class TermList extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-       /* RecycleView for term list and empty view when no term data is present. */
+        /* RecycleView for term list and empty view when no term data is present. */
         RecyclerView recyclerView = findViewById(R.id.recycleview);
         emptyView = (TextView) findViewById(R.id.empty_view);
         Repository repository = new Repository(getApplication());

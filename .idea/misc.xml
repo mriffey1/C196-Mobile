@@ -16,13 +16,14 @@
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_detailed_assessments.xml" value="0.4363636212309535" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_detailed_course.xml" value="0.4363636212309535" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_detailed_term.xml" value="0.35722819593787336" />
-        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_main.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_main.xml" value="0.5847272524494778" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/activity_term_list.xml" value="0.4807511737089202" />
-        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/assessment_list_item.xml" value="0.6545454318464303" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/assessment_list_item.xml" value="0.5847272524494778" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/course_list_item.xml" value="0.9284940411700975" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/layout/term_list_item.xml" value="0.4363636212309535" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu-land/action_bar_menu.xml" value="0.2625" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu/action_bar_menu.xml" value="0.2484375" />
+        <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu/course_action_bar.xml" value="0.371875" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu/menu_term_list.xml" value="0.44722222222222224" />
         <entry key="..\:/Users/akira/AndroidStudioProjects/C196/app/src/main/res/menu/term_action_bar.xml" value="0.37564102564102564" />
       </map>
