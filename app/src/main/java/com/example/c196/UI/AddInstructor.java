@@ -50,8 +50,9 @@ public class AddInstructor extends AppCompatActivity {
                 Instructor instructor = new Instructor(instructorId, name, phone, email);
                 repository.insert(instructor);
 
-                Intent intent = new Intent(AddInstructor.this, AddCourse.class);
+                Intent intent = new Intent(AddInstructor.this, DetailedCourse.class);
                 finish();
+                recreate();
                 //  startActivity(intent);
             }
 

@@ -20,22 +20,20 @@ import java.util.List;
 public class TermList extends AppCompatActivity {
     private TextView emptyView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        RecyclerView recyclerView = findViewById(R.id.recycleview);
 
+       /* RecycleView for term list and empty view when no term data is present. */
+        RecyclerView recyclerView = findViewById(R.id.recycleview);
         emptyView = (TextView) findViewById(R.id.empty_view);
         Repository repository = new Repository(getApplication());
         List<Term> terms = repository.getTerms();
         final TermAdapter adapter = new TermAdapter(this);
         recyclerView.setAdapter(adapter);
-
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setTerms(terms);
@@ -63,7 +61,7 @@ public class TermList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
+    /* Add term button to add a new term into the database. */
     public void addTerm(View view) {
         Intent intent = new Intent(TermList.this, DetailedTerm.class);
         startActivity(intent);

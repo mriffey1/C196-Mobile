@@ -1,5 +1,6 @@
 package com.example.c196.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -27,4 +28,10 @@ public interface CourseDAO {
 
     @Query("SELECT * FROM courses WHERE termId = :termId")
     List<Course> getAssocTermCourses(int termId);
+
+    @Query("SELECT * FROM courses WHERE courseId = :courseId")
+    List<Course> getAssocCourses(int courseId);
+
+    @Query("SELECT courses.*, terms.termName as term_title, terms.termStart as term_start_date, terms.termEnd as term_end_date FROM courses JOIN terms ON courses.termId = terms.termId ORDER BY terms.termStart, courses.courseStart")
+    List<Course> getAllCourseTerms();
 }

@@ -54,11 +54,6 @@ public class Term {
 
     @Override
     public String toString() {
-        return "Term{" +
-                "termId=" + termId +
-                ", termName='" + termName + '\'' +
-                ", termStart=" + termStart +
-                ", termEnd=" + termEnd +
-                '}';
+        return termName;
     }
 }

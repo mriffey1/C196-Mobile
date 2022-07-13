@@ -19,7 +19,9 @@ import java.util.List;
 
 public class CourseList extends AppCompatActivity {
     private TextView emptyView;
-
+    private Course course;
+    int termId;
+    Repository repository = new Repository(getApplication());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +33,12 @@ public class CourseList extends AppCompatActivity {
 
         Repository repository = new Repository(getApplication());
         List<Course> courses = repository.getCourses();
+        termId = getIntent().getIntExtra("termId", -1);
         final CourseAdapter adapter = new CourseAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setCourses(courses);
+
         if (courses.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
@@ -53,6 +57,7 @@ public class CourseList extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -64,4 +69,6 @@ public class CourseList extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.term_action_bar, menu);
         return true;
     }
+
+
 }

@@ -11,18 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.c196.Entity.Assessment;
-import com.example.c196.Entity.Term;
 import com.example.c196.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.AssessmentViewHolder> {
     class AssessmentViewHolder extends RecyclerView.ViewHolder {
-        private final TextView assessmentItemView;
+        private final TextView assessment_name;
+        private final TextView assessment_start_date;
+        private final TextView assessment_end_date;
 
         private AssessmentViewHolder(View itemView) {
             super(itemView);
-            assessmentItemView = itemView.findViewById(R.id.textView2);
+            assessment_name = itemView.findViewById(R.id.assessment_name);
+            assessment_start_date = itemView.findViewById(R.id.assessment_start_date);
+            assessment_end_date = itemView.findViewById(R.id.assessment_end_date);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -60,11 +66,19 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
     @Override
     public void onBindViewHolder(@NonNull AssessmentAdapter.AssessmentViewHolder holder, int position) {
         if (mAssessments != null) {
+            String format = "MM/dd/yy";
+            SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             Assessment current = mAssessments.get(position);
+            Date start = current.getAssessmentStart();
+            Date end = current.getAssessmentEnd();
+            String startString = "Start Date: " + format1.format(start);
+            String endString = "End Date: " + format1.format(end);
             String title = current.getAssessmentTitle();
-            holder.assessmentItemView.setText(title);
+            holder.assessment_name.setText(title);
+            holder.assessment_start_date.setText(startString);
+            holder.assessment_end_date.setText(endString);
         } else {
-            holder.assessmentItemView.setText("No title");
+            holder.assessment_name.setText("No title");
         }
     }
 

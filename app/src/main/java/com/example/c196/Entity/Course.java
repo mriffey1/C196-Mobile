@@ -1,12 +1,22 @@
 package com.example.c196.Entity;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
+import com.example.c196.DAO.CourseDAO;
 
-@Entity(tableName = "courses")
+import java.util.Date;
+import java.util.List;
+
+@Entity(tableName = "courses",  foreignKeys = @ForeignKey(entity = Term.class,
+        parentColumns = "termId",
+        childColumns = "termId",
+        onDelete = ForeignKey.CASCADE))
+
 public class Course {
+
     @PrimaryKey(autoGenerate = true)
     private int courseId;
     private String courseName;
@@ -16,6 +26,11 @@ public class Course {
     private int instructorId;
     private String courseOptionalNotes;
     private int termId;
+
+    public Course() {
+
+    }
+
 
     public int getCourseId() {
         return courseId;
@@ -76,6 +91,7 @@ public class Course {
     public int getTermId() {
         return termId;
     }
+
 
     public void setTermId(int termId) {
         this.termId = termId;

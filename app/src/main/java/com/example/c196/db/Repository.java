@@ -2,6 +2,8 @@ package com.example.c196.db;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.c196.DAO.AssessmentDAO;
 import com.example.c196.DAO.CourseDAO;
 import com.example.c196.DAO.InstructorDAO;
@@ -26,6 +28,9 @@ public class Repository {
     private List<Instructor> mAllInstructors;
     private List<Term> mAllTerms;
     private List<Course> mAssocTermCourses;
+    private List<Course> mAssocCourses;
+    private List<Assessment> mAssociatedAssessments;
+    private List<Term> mtermCourses;
 
     private static int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -60,6 +65,29 @@ public class Repository {
             e.printStackTrace();
         }
         return mAllCourses;
+    }
+    public List<Assessment> getAssocAssessments(int courseId) {
+        databaseExecutor.execute(() -> {
+            mAssociatedAssessments = mAssessmentDAO.getAssocAssessments(courseId);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mAssociatedAssessments;
+    }
+
+    public List<Course> getAssocCourses(int courseId) {
+        databaseExecutor.execute(() -> {
+            mAssocCourses = mCourseDAO.getAssocCourses(courseId);
+        });
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mAssocCourses;
     }
 
     public List<Course> getAssocTermCourses(int termId) {

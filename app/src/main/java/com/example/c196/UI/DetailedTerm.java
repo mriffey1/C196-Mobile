@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,10 +56,12 @@ public class DetailedTerm extends AppCompatActivity {
     Course selectedCourse;
     Term updatingTerm;
     Button deleteBtn;
+    Term term;
     Menu menu;
     boolean existingTerm = false;
     boolean value;
 
+    /* Creating menu to display the delete button when modifying an existing entry only */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.term_action_bar, menu);
@@ -68,6 +71,8 @@ public class DetailedTerm extends AppCompatActivity {
         return true;
     }
 
+    /* Determining if courses are associated, deleting (or not deleting) the terms and displaying the
+     * appropriate messages to the user.  */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -86,7 +91,6 @@ public class DetailedTerm extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(this, "Unable to delete. Term has assigned courses. Please remove courses, save, and try again.", Toast.LENGTH_LONG).show();
-
                 }
                 return true;
         }
@@ -107,20 +111,20 @@ public class DetailedTerm extends AppCompatActivity {
         addTermSaveBtn = findViewById(R.id.addTermSaveBtn);
         termId = getIntent().getIntExtra("id", -1);
         title = getIntent().getStringExtra("title");
-        //    termTitle.setText(title);
 
-        // Converting database value for start date to string
+
+        /* Converting database value for start date to a string */
         Long start = getIntent().getLongExtra("start", -1);
         startDate = new Date(start);
         String startString = format1.format(startDate);
 
-
-        // Converting database value for end date to string
+        /* Converting database value for end date to a string */
         Long end = getIntent().getLongExtra("end", -1);
         endDate = new Date(end);
         String endString = format1.format(endDate);
 
-
+        /* Determining whether the item clicked from UI.TermList is a new term or an existing item.
+         * If it is an existing item - the appropriate fields will display the information.  */
         for (Term term : repository.getTerms()) {
             if (term.getTermId() == termId) {
                 updatingTerm = term;
@@ -131,9 +135,8 @@ public class DetailedTerm extends AppCompatActivity {
             termTitle.setText(title);
             startDateTerm.setText(startString);
             endDateTerm.setText(endString);
-        } else {
-            existingTerm = false;
         }
+        /* Start Date Listener for date picker */
         startDateTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,13 +159,13 @@ public class DetailedTerm extends AppCompatActivity {
                 updateLabel(true);
             }
         };
-
+        /* End Date Listener for date picker */
         endDateTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String info = endDateTerm.getText().toString();
+                String info2 = endDateTerm.getText().toString();
                 try {
-                    calendarEnd.setTime(format1.parse(info));
+                    calendarStart.setTime((Date) format1.parse(info2));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -181,55 +184,73 @@ public class DetailedTerm extends AppCompatActivity {
             }
         };
 
+//        /* Adapter for available courses to set spinner */
+//        List<Course> courseList = repository.getCourses();
+//        if (!courseList.isEmpty()){
+//            ArrayAdapter<Course> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
+//            typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            courseSpinner.setAdapter(typeAdapter);
+//        } else {
+//            courseSpinner.setSelection(0);
+//        }
 
-        List<Course> courseList = repository.getCourses();
-        ArrayAdapter<Course> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseSpinner.setAdapter(typeAdapter);
 
-        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedCourse = courseList.get(i);
-            }
+//        /* Identifies the selected course from the spinner from the courseList */
+//        courseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                selectedCourse = courseList.get(i);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+        /* Sets lists to create an associated course list when added to the recycle view. */
         List<Course> assocCourseList = repository.getAssocTermCourses(termId);
-        List<Course> selectedCourseList = new ArrayList<>(assocCourseList);
         RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         associatedCoursesView.setAdapter(courseAdapter);
         associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(selectedCourseList);
+        courseAdapter.setCourses(assocCourseList);
+//
+//        /* Add Course button that determines whether the selected course is already present and if not,
+//         * then adds the course to the selectedCourseList */
+//        termAddCourseBtn.setOnClickListener(view -> {
+//            if (selectedCourseList.contains(selectedCourse)) {
+//                Toast.makeText(this, "Course already added.", Toast.LENGTH_LONG).show();
+//                return;
+//            } else {
+//                selectedCourseList.add(selectedCourse);
+//                courseAdapter.setCourses(selectedCourseList);
+//                Toast.makeText(this, "Course added.", Toast.LENGTH_LONG).show();
+//                courseAdapter.notifyDataSetChanged();
+//            }
+//        });
+//
+//        /* Remove Course button that determines whether the selected course is on the selectedCourseList,
+//         * and then removes the course from the list */
+//        termRemoveCourseBtn.setOnClickListener(view -> {
+//            for (int i = 0; selectedCourseList.size() > i; i++) {
+//                if (selectedCourseList.get(i).getCourseId() == selectedCourse.getCourseId()) {
+//                    int id = selectedCourseList.get(i).getCourseId();
+//                    selectedCourseList.remove(i);
+//                    courseAdapter.setCourses(selectedCourseList);
+//
+//                    Toast.makeText(this, "Course removed.", Toast.LENGTH_LONG).show();
+//                    courseAdapter.notifyDataSetChanged();
+//                } else {
+//                    Toast.makeText(this, "Course is not associated with term.", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
-        termAddCourseBtn.setOnClickListener(view -> {
-            if (selectedCourseList.contains(selectedCourse)) {
-                return;
-            } else {
-                selectedCourseList.add(selectedCourse);
-                courseAdapter.setCourses(selectedCourseList);
-                Toast.makeText(this, "Course added.", Toast.LENGTH_LONG).show();
-                courseAdapter.notifyDataSetChanged();
-            }
-        });
-        termRemoveCourseBtn.setOnClickListener(view -> {
-            for (int i = 0; selectedCourseList.size() > i; i++) {
-                if (selectedCourseList.get(i).getCourseId() == selectedCourse.getCourseId()) {
-                    int id = selectedCourseList.get(i).getCourseId();
-                    selectedCourseList.remove(i);
-                    courseAdapter.setCourses(selectedCourseList);
-                    Toast.makeText(this, "Course removed.", Toast.LENGTH_LONG).show();
-                    courseAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-
-
+        /* Save button listener. On save, courses removed from the associated list will have their ID's updated to zero.
+         * Also updates associated course term ID's, and determines whether this is a new term or existing term and updates
+         * the termId appropriately.  */
         addTermSaveBtn.setOnClickListener(view -> {
-            updatingCourseTermId(selectedCourse, 0);
+
             String title = termTitle.getText().toString();
             String dateStart = startDateTerm.getText().toString();
             String dateEnd = endDateTerm.getText().toString();
@@ -242,10 +263,13 @@ public class DetailedTerm extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            for (int i = 0; selectedCourseList.size() > i; i++) {
-                updatingCourseTermId(selectedCourseList.get(i), termId);
-            }
-            if (termId != -1) {
+
+
+            if (repository.getTerms().size() == 0){
+                termId = 1;
+                Term term = new Term(termId, title, finalStart, finalEnd);
+                repository.insert(term);
+            } else if (termId != -1) {
                 Term term = new Term(termId, title, finalStart, finalEnd);
                 repository.update(term);
             } else {
@@ -259,6 +283,7 @@ public class DetailedTerm extends AppCompatActivity {
         });
     }
 
+    /* Method to update the course termId */
     private void updatingCourseTermId(Course course, int termId) {
         int courseId = course.getCourseId();
         String courseTitle = course.getCourseName();
@@ -271,7 +296,7 @@ public class DetailedTerm extends AppCompatActivity {
         repository.update(course1);
     }
 
-    // Method to update labels for start and end date
+    /* Method to update labels for start and end dates */
     private void updateLabel(boolean value) {
         if (value) {
             String format = "MM/dd/yy";
@@ -283,5 +308,4 @@ public class DetailedTerm extends AppCompatActivity {
             endDateTerm.setText(format1.format(calendarEnd.getTime()));
         }
     }
-
 }

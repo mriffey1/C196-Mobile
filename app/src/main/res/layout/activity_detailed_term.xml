@@ -19,6 +19,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Term Title:"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +47,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="16dp"
             android:text="Start Date:"
+            android:textColor="#0B0B0B"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +76,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="16dp"
             android:text="End Date:"
+            android:textColor="#131313"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -95,75 +98,28 @@
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <TextView
-            android:id="@+id/textView15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="16dp"
-            android:text="Courses:"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/endDateTerm" />
-
-        <Button
-            android:id="@+id/termAddCourseBtn"
-            android:layout_width="100dp"
-            android:layout_height="51dp"
-            android:layout_marginStart="17dp"
-            android:layout_marginTop="43dp"
-            android:layout_marginEnd="5dp"
-            android:text="Add Course"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/termRemoveCourseBtn"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/courseSpinner"
-            app:layout_constraintTop_toBottomOf="@+id/endDateTerm" />
-
-        <Button
-            android:id="@+id/termRemoveCourseBtn"
-            android:layout_width="100dp"
-            android:layout_height="51dp"
-            android:layout_marginTop="43dp"
-            android:layout_marginEnd="16dp"
-            android:text="Remove Course"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/endDateTerm" />
-
-        <Spinner
-            android:id="@+id/courseSpinner"
-            android:layout_width="156dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="238dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
-
-        <TextView
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:text="Courses Associated with Term:"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/termAddCourseBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/endDateTerm" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/coursesTermView"
-            android:layout_width="196dp"
-            android:layout_height="216dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="1dp"
-            android:layout_marginBottom="13dp"
-            app:layout_constraintBottom_toTopOf="@+id/addTermSaveBtn"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -172,12 +128,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="155dp"
+            android:layout_marginTop="44dp"
             android:layout_marginEnd="168dp"
-            android:layout_marginBottom="35dp"
             android:text="Save"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.372"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coursesTermView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

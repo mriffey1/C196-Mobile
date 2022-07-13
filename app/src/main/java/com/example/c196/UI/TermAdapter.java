@@ -10,23 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.c196.DAO.CourseDAO;
 import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Term;
 import com.example.c196.R;
-import com.example.c196.db.Repository;
 
-import java.text.ParseException;
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
-
+    private List<Course> courses = new ArrayList<>();
+    private Term term;
     class TermViewHolder extends RecyclerView.ViewHolder {
         private final TextView termTitleList;
-        private final TextView termDatesList;
+        private final TextView termStartDatesList;
+        private final TextView termEndDatesList;
 
 
         Course courses;
@@ -34,8 +36,9 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
         private TermViewHolder(View itemView) {
             super(itemView);
-            termTitleList = itemView.findViewById(R.id.textView2);
-            termDatesList = itemView.findViewById(R.id.textView18);
+            termTitleList = itemView.findViewById(R.id.term_name);
+            termStartDatesList = itemView.findViewById(R.id.termStartDatesList);
+            termEndDatesList = itemView.findViewById(R.id.termEndDatesList);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -79,23 +82,26 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
             String format = "MM/dd/yy";
             SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             Term current = mTerms.get(position);
-
-
             String title = current.getTermName();
             Date start = current.getTermStart();
             Date end = current.getTermEnd();
-            String startString = format1.format(start);
-            String endString = format1.format(end);
+            String startString = "Start Date: " + format1.format(start);
+            String endString = "End Date: " + format1.format(end);
             String date = startString + " - " + endString;
 
             holder.termTitleList.setText(title);
-            holder.termDatesList.setText(date);
+            holder.termStartDatesList.setText(startString);
+            holder.termEndDatesList.setText(endString);
 
         } else {
             holder.termTitleList.setText("No title");
         }
     }
-
+    public void setCoursesExtended(List<Course> courses, Term term) {
+        this.courses = courses;
+        this.term = term;
+        notifyDataSetChanged();
+    }
     public void setTerms(List<Term> terms) {
         mTerms = terms;
         notifyDataSetChanged();
