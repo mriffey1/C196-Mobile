@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.c196.Entity.Assessment;
@@ -37,24 +40,51 @@ public class DetailedAssessments extends AppCompatActivity {
     final Calendar calendarEnd = Calendar.getInstance();
     String format = "MM/dd/yy";
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
-    EditText textTitle;
-    EditText startDateAssess;
-    EditText endDateAssess;
-    Spinner assessmentType;
-    int assessmentId;
-    int assessmentCourseId;
-    Spinner assessmentCourseSpinner;
-    Button saveBtn;
-    Date startDate;
-    Date endDate;
+
+    EditText textTitle, startDateAssess, endDateAssess;
+    Spinner assessmentType, assessmentCourseSpinner;
+    String type;
+    int assessmentId, assessmentCourseId, selectedCourse;
+    Button saveBtn, deleteBtn;
+    Date startDate, endDate;
     String title;
     Assessment updatingAssessment;
-    int selectedCourse;
+
+    boolean existingAssessment = false;
+    private TextView emptyView;
+
+    /* Creating menu to display the delete button when modifying an existing entry only */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.term_action_bar, menu);
+        if (!existingAssessment) {
+            menu.findItem(R.id.deleteBtn).setVisible(false);
+        }
+        return true;
+    }
+
+    /* Determining if courses are associated, deleting (or not deleting) the terms and displaying the
+     * appropriate messages to the user.  */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteBtn:
+                Assessment assessment = new Assessment(assessmentId, title, startDate, endDate, type, selectedCourse);
+                Toast.makeText(this, "Course has been deleted", Toast.LENGTH_LONG).show();
+                repository.delete(assessment);
+                Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
+                startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_assessments);
+        deleteBtn = findViewById(R.id.deleteBtn);
         textTitle = findViewById(R.id.textTitle);
         startDateAssess = findViewById(R.id.startDateAssess);
         assessmentCourseSpinner = findViewById(R.id.assessmentCourseSpinner);
@@ -64,6 +94,7 @@ public class DetailedAssessments extends AppCompatActivity {
         assessmentId = getIntent().getIntExtra("id", -1);
         assessmentCourseId = getIntent().getIntExtra("cid", -1);
         title = getIntent().getStringExtra("title");
+
         // Converting database value for start date to string
         Long start = getIntent().getLongExtra("start", -1);
         startDate = new Date(start);
@@ -105,6 +136,7 @@ public class DetailedAssessments extends AppCompatActivity {
             }
         }
         if (updatingAssessment != null) {
+            existingAssessment = true;
             textTitle.setText(title);
             startDateAssess.setText(startString);
             endDateAssess.setText(endString);
@@ -165,7 +197,6 @@ public class DetailedAssessments extends AppCompatActivity {
         saveBtn.setOnClickListener(view -> {
             String title = textTitle.getText().toString();
             String type = typeSpinner.getSelectedItem().toString();
-     //       String course = assessmentCourseSpinner.getSelectedItem().toString();
             String dateStart = startDateAssess.getText().toString();
             String dateEnd = endDateAssess.getText().toString();
             Date finalStart = null;
@@ -201,12 +232,9 @@ public class DetailedAssessments extends AppCompatActivity {
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
                 repository.insert(assessment);
             }
-
             Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
             startActivity(intent);
-
         });
-
     }
 
     // Method to update labels for start and end date

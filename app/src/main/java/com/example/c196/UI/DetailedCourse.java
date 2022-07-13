@@ -43,7 +43,6 @@ public class DetailedCourse extends AppCompatActivity {
     String format = "MM/dd/yy";
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
 
-
     EditText courseStartDate, courseEndDate, courseTitle, courseNotes;
     TextView instructNameField, instructPhoneField, instructEmailField;
     Spinner courseStatus, courseInstructor, termCourseSpinner;

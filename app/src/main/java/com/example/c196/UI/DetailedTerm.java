@@ -43,16 +43,12 @@ public class DetailedTerm extends AppCompatActivity {
     final Calendar calendarEnd = Calendar.getInstance();
     String format = "MM/dd/yy";
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
-    EditText termTitle;
-    EditText startDateTerm;
-    EditText endDateTerm;
-    Date startDate;
-    Date endDate;
+    EditText termTitle, startDateTerm, endDateTerm;
+    Date startDate, endDate;
     String title;
-    Button addTermSaveBtn;
+    Button addTermSaveBtn, deleteBtn;
     int termId;
     Term updatingTerm;
-    Button deleteBtn;
     boolean existingTerm = false;
     private TextView emptyView;
 
@@ -236,19 +232,6 @@ public class DetailedTerm extends AppCompatActivity {
         });
 
     }
-
-//    /* Method to update the course termId */
-//    private void updatingCourseTermId(Course course, int termId) {
-//        int courseId = course.getCourseId();
-//        String courseTitle = course.getCourseName();
-//        Date courseStart = course.getCourseStart();
-//        Date courseEnd = course.getCourseEnd();
-//        String courseStatus = course.getCourseStatus();
-//        int instructorId = course.getInstructorId();
-//        String courseNotes = course.getCourseOptionalNotes();
-//        Course course1 = new Course(courseId, courseTitle, courseStart, courseEnd, courseStatus, instructorId, courseNotes, termId);
-//        repository.update(course1);
-//    }
 
     /* Method to update labels for start and end dates */
     private void updateLabel(boolean value) {

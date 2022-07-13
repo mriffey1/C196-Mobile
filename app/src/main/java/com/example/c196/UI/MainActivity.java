@@ -29,19 +29,15 @@ public class MainActivity extends AppCompatActivity {
     public void viewTerms(View view) {
         Intent intent = new Intent(MainActivity.this, TermList.class);
         startActivity(intent);
-        Repository repository = new Repository(getApplication());
     }
 
     public void viewCourses(View view) {
         Intent intent = new Intent(MainActivity.this, CourseList.class);
         startActivity(intent);
-        Repository repository = new Repository(getApplication());
-
     }
 
     public void viewAssessments(View view) {
         Intent intent = new Intent(MainActivity.this, AssessmentsList.class);
         startActivity(intent);
-        Repository repository = new Repository(getApplication());
     }
 }

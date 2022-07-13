@@ -20,6 +20,40 @@ import java.util.List;
 public class AssessmentsList extends AppCompatActivity {
     private TextView emptyView;
 
+
+    boolean existingAssessment = false;
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation_action_bar, menu);
+
+        if (!existingAssessment) {
+            menu.findItem(R.id.assessmentsHome).setVisible(false);
+        }
+        return true;
+    }
+
+    /* Determining if courses are associated, deleting (or not deleting) the terms and displaying the
+     * appropriate messages to the user.  */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.termsHome:
+                Intent courseHome = new Intent(AssessmentsList.this, TermList.class);
+                startActivity(courseHome);
+                return true;
+            case R.id.coursesHome:
+                Intent assessmentHome = new Intent(AssessmentsList.this, CourseList.class);
+                startActivity(assessmentHome);
+                return true;
+            case R.id.assessmentsHome:
+                return false;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

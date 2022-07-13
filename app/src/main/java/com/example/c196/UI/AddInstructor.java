@@ -19,9 +19,7 @@ import java.util.List;
 import javax.xml.transform.Result;
 
 public class AddInstructor extends AppCompatActivity {
-    EditText instructName;
-    EditText instructPhone;
-    EditText instructEmail;
+    EditText instructName, instructPhone, instructEmail;
     Button instructSaveBtn;
     private final Repository repository = new Repository(getApplication());
 
@@ -33,7 +31,6 @@ public class AddInstructor extends AppCompatActivity {
         instructPhone = findViewById(R.id.instructPhone);
         instructEmail = findViewById(R.id.instructEmail);
         instructSaveBtn = findViewById(R.id.instructSaveBtn);
-
         instructSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,12 +48,9 @@ public class AddInstructor extends AppCompatActivity {
                 repository.insert(instructor);
 
                 Intent intent = new Intent(AddInstructor.this, DetailedCourse.class);
+                startActivity(intent);
                 finish();
                 recreate();
-                //  startActivity(intent);
-            }
-
-            private void finishActivity(Intent intent) {
             }
 
 

@@ -22,6 +22,37 @@ public class CourseList extends AppCompatActivity {
     private Course course;
     int termId;
     Repository repository = new Repository(getApplication());
+
+    boolean existingCourse = false;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation_action_bar, menu);
+
+        if (!existingCourse) {
+            menu.findItem(R.id.coursesHome).setVisible(false);
+        }
+        return true;
+    }
+
+    /* Determining if courses are associated, deleting (or not deleting) the terms and displaying the
+     * appropriate messages to the user.  */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.termsHome:
+                Intent courseHome = new Intent(CourseList.this, TermList.class);
+                startActivity(courseHome);
+                return true;
+            case R.id.coursesHome:
+              return false;
+            case R.id.assessmentsHome:
+                Intent assessmentHome = new Intent(CourseList.this, AssessmentsList.class);
+                startActivity(assessmentHome);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +94,8 @@ public class CourseList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     public boolean onCreationOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.term_action_bar, menu);
         return true;
     }
-
-
 }

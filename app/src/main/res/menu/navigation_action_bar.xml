@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/termsHome"
+        android:orderInCategory="100"
+        android:title="Terms" />
+    <item
+        android:id="@+id/coursesHome"
+        android:orderInCategory="100"
+        android:title="Courses" />
+    <item
+        android:id="@+id/assessmentsHome"
+        android:orderInCategory="100"
+        android:title="Assessments" />
+</menu>
