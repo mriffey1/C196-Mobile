@@ -1,10 +1,13 @@
 package com.example.c196.UI;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +31,6 @@ public class TermList extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation_action_bar, menu);
-
         if (!existingTerm) {
             menu.findItem(R.id.termsHome).setVisible(false);
         }
@@ -58,8 +60,15 @@ public class TermList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ActionBar actionBar;
+//        actionBar = getSupportActionBar();
+//        ColorDrawable colorDrawable
+//                = new ColorDrawable(Color.parseColor("#0F9D58"));
+//
+//        // Set BackgroundDrawable
+//        actionBar.setBackgroundDrawable(colorDrawable);
+     //   getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    //    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /* RecycleView for term list and empty view when no term data is present. */
         RecyclerView recyclerView = findViewById(R.id.recycleview);
