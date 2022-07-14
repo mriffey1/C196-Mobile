@@ -11,64 +11,59 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="19dp"
         android:text="Welcome to the App!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="111dp"
+        android:layout_width="150dp"
         android:layout_height="105dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="208dp"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="43dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="64dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_ac_unit_24" />
+        app:srcCompat="@drawable/ic_logo_inverse" />
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="84dp"
-        android:orientation="horizontal"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="124dp"
+        android:onClick='viewTerms'
+        android:text="Step 1: Terms"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="124dp"
+        android:onClick="viewCourses"
+        android:text="Step 2: Courses"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="160dp"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="20px"
-            android:gravity="center"
-            android:onClick='viewTerms'
-            android:text="View Terms" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="160dp"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="20px"
-            android:onClick="viewCourses"
-            android:text="View Courses" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="190dp"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="15px"
-            android:onClick="viewAssessments"
-            android:text="View Assessments" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="124dp"
+        android:onClick="viewAssessments"
+        android:text="Step 3: Assessments"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
