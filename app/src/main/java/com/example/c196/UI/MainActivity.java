@@ -27,16 +27,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /* Intent activity for button to view Term List */
     public void viewTerms(View view) {
         Intent intent = new Intent(MainActivity.this, TermList.class);
         startActivity(intent);
     }
-
+    /* Intent activity for button to view Course List */
     public void viewCourses(View view) {
         Intent intent = new Intent(MainActivity.this, CourseList.class);
         startActivity(intent);
     }
-
+    /* Intent activity for button to view Assessment List */
     public void viewAssessments(View view) {
         Intent intent = new Intent(MainActivity.this, AssessmentsList.class);
         startActivity(intent);

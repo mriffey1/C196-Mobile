@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.c196.Entity.Assessment;
 import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Term;
 import com.example.c196.R;
@@ -23,6 +24,7 @@ import com.example.c196.db.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -39,12 +41,14 @@ public class DetailedTerm extends AppCompatActivity {
     EditText termTitle, startDateTerm, endDateTerm;
     Date startDate, endDate;
     String title;
-    View notification;
     Button addTermSaveBtn, deleteBtn;
     int termId;
     Term updatingTerm;
     boolean existingTerm = false;
     private TextView emptyView;
+
+    List<Course> allCourses;
+    List<Course> associatedCourses;
 
     /* Creating menu to display the delete button when modifying an existing entry only */
     @Override
@@ -166,16 +170,24 @@ public class DetailedTerm extends AppCompatActivity {
             }
         };
 
+        /* Array list for identifying and setting associated courses with associatedCoursesView RecyclerView */
+        allCourses = repository.getCourses();
+        associatedCourses = new ArrayList<>();
+
+        for (Course c : allCourses) {
+            if (c.getTermId() == termId) {
+                associatedCourses.add(c);
+            }
+        }
 
         /* Sets lists to create an associated course list when added to the recycle view. */
-        List<Course> assocCourseList = repository.getAssocTermCourses(termId);
         RecyclerView associatedCoursesView = findViewById(R.id.coursesTermView);
         emptyView = (TextView) findViewById(R.id.empty_view_term);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         associatedCoursesView.setAdapter(courseAdapter);
         associatedCoursesView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(assocCourseList);
-        if (assocCourseList.isEmpty()) {
+        courseAdapter.setCourses(associatedCourses);
+        if (associatedCourses.isEmpty()) {
             associatedCoursesView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         } else {
@@ -183,11 +195,7 @@ public class DetailedTerm extends AppCompatActivity {
             emptyView.setVisibility(View.GONE);
         }
 
-
-
-        /* Save button listener. On save, courses removed from the associated list will have their ID's updated to zero.
-         * Also updates associated course term ID's, and determines whether this is a new term or existing term and updates
-         * the termId appropriately.  */
+        /* Save button listener. */
         addTermSaveBtn.setOnClickListener(view -> {
             String title = termTitle.getText().toString();
             String dateStart = startDateTerm.getText().toString();

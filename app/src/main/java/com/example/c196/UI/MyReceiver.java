@@ -26,8 +26,6 @@ public class MyReceiver extends BroadcastReceiver {
                 .setContentTitle("C196 Notification").build();
         NotificationManager manager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         manager.notify(notificationId++, n);
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
     }
 
     private void createNotificationChannel(Context context, String CHANNEL_ID) {
@@ -36,8 +34,7 @@ public class MyReceiver extends BroadcastReceiver {
         int importance = NotificationManager.IMPORTANCE_DEFAULT;
         NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
         channel.setDescription(description);
-        //Register the channel with the system; you can't change the importance or other notification
-        //behaviors after this
+
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }

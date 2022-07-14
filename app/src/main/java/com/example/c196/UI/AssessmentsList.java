@@ -19,16 +19,13 @@ import java.util.List;
 
 public class AssessmentsList extends AppCompatActivity {
     private TextView emptyView;
-
-
     boolean existingAssessment = false;
 
-
-
+    /* Menu to navigate between the Assessment List, Term List and Course List without having
+     * to return to the home screen. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation_action_bar, menu);
-
         if (!existingAssessment) {
             menu.findItem(R.id.assessmentsHome).setVisible(false);
         }
@@ -60,6 +57,9 @@ public class AssessmentsList extends AppCompatActivity {
         setContentView(R.layout.activity_assessments_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        /* Retrieving a list of all assessments and displaying in the recycler view. If no
+        assessments exist, a message will be displayed */
         RecyclerView recyclerView = findViewById(R.id.recycleview2);
         emptyView = (TextView) findViewById(R.id.empty_view2);
         Repository repository = new Repository(getApplication());
@@ -77,21 +77,8 @@ public class AssessmentsList extends AppCompatActivity {
         }
     }
 
-    public boolean onCreationOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.term_action_bar, menu);
-        return true;
-    }
 
-    public boolean OnOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
+    /* Floating icon to add a new assessment */
     public void addAssessmentClick(View view) {
         Intent intent = new Intent(AssessmentsList.this, DetailedAssessments.class);
         startActivity(intent);

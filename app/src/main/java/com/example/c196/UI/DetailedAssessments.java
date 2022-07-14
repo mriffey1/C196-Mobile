@@ -27,6 +27,7 @@ import com.example.c196.db.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,10 @@ public class DetailedAssessments extends AppCompatActivity {
 
     boolean existingAssessment = false;
     private TextView emptyView;
+
+    List<Course> allCourses;
+    List<Course> associatedCourses;
+
 
     /* Creating menu to display the delete button when modifying an existing entry only */
     @Override
@@ -94,12 +99,12 @@ public class DetailedAssessments extends AppCompatActivity {
         assessmentCourseId = getIntent().getIntExtra("cid", -1);
         title = getIntent().getStringExtra("title");
 
-        // Converting database value for start date to string
+        /* Converting database value for start date to string */
         Long start = getIntent().getLongExtra("start", -1);
         startDate = new Date(start);
         String startString = format1.format(startDate);
 
-        // Spinner for Courses
+        /* Spinner for Courses */
         List<Course> courseList = repository.getCourses();
         ArrayAdapter<Course> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, courseList);
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -114,17 +119,22 @@ public class DetailedAssessments extends AppCompatActivity {
             }
         });
 
-
-        List<Course> assocCourseList = repository.getAssocCourses(assessmentCourseId);
-        System.out.println(assessmentCourseId);
+        /* Array list for getting associated courses and displaying them in the
+        associatedAssessmentCoursesView RecyclerView */
+        allCourses = repository.getCourses();
+        associatedCourses = new ArrayList<>();
+        for (Course c : allCourses) {
+            if (c.getCourseId() == assessmentCourseId) {
+                associatedCourses.add(c);
+            }
+        }
         RecyclerView associatedAssessmentCoursesView = findViewById(R.id.recyclerViewAssessment);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         associatedAssessmentCoursesView.setAdapter(courseAdapter);
         associatedAssessmentCoursesView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(assocCourseList);
-        System.out.println(assocCourseList);
+        courseAdapter.setCourses(associatedCourses);
 
-        // Converting database value for end date to string
+        /* Converting database value for end date to string */
         Long end = getIntent().getLongExtra("end", -1);
         endDate = new Date(end);
         String endString = format1.format(endDate);
@@ -186,6 +196,8 @@ public class DetailedAssessments extends AppCompatActivity {
                 updateLabel(false);
             }
         };
+
+        /* Spinner for assessment types and setting position if an existing assessment */
         Spinner typeSpinner = (Spinner) findViewById(R.id.assessmentType);
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this, R.array.addAssessType, android.R.layout.simple_spinner_dropdown_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -193,6 +205,8 @@ public class DetailedAssessments extends AppCompatActivity {
         String currentStatus = getIntent().getStringExtra("type");
         int intStatus = typeAdapter.getPosition(currentStatus);
         assessmentType.setSelection(intStatus);
+
+        /* Save button */
         saveBtn.setOnClickListener(view -> {
             String title = textTitle.getText().toString();
             String type = typeSpinner.getSelectedItem().toString();
@@ -206,7 +220,6 @@ public class DetailedAssessments extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
             if (courseList.size() == 0) {
                 Toast.makeText(this, "Please create a course before creating an assessment.", Toast.LENGTH_LONG).show();
                 return;
@@ -236,7 +249,7 @@ public class DetailedAssessments extends AppCompatActivity {
         });
     }
 
-    // Method to update labels for start and end date
+    /* Method to update labels for start and end date */
     private void updateLabel(boolean value) {
         if (value) {
             String format = "MM/dd/yy";

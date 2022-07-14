@@ -22,6 +22,9 @@ import java.util.List;
 public class TermList extends AppCompatActivity {
     private TextView emptyView;
     boolean existingTerm = false;
+
+    /* Menu to navigate between the Assessment List, Term List and Course List without having
+     * to return to the home screen. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation_action_bar, menu);
@@ -32,8 +35,8 @@ public class TermList extends AppCompatActivity {
         return true;
     }
 
-    /* Determining if courses are associated, deleting (or not deleting) the terms and displaying the
-     * appropriate messages to the user.  */
+    /* Menu to navigate between the Assessment List, Term List and Course List without having
+     * to return to the home screen. */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -25,6 +25,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final TextView assessment_end_date;
         private final TextView assessmentObjective;
 
+
         private AssessmentViewHolder(View itemView) {
             super(itemView);
             assessment_name = itemView.findViewById(R.id.assessment_name);
