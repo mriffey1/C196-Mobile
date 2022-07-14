@@ -225,7 +225,7 @@ public class DetailedCourse extends AppCompatActivity {
         });
 
         /* Spinner for Instructors */
-        onRestart();
+
         List<Instructor> instructorList = repository.getInstructors();
         ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
         courseInstructor.getAdapter();
@@ -252,6 +252,8 @@ public class DetailedCourse extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        onRestart();
 
         /* Array list for getting associated assessments and displaying them in the associatedCoursesView RecyclerView */
         allAssessments = repository.getAssessments();
