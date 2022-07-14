@@ -6,6 +6,9 @@
     <string name="no_data_courses">Currently, no courses exist. \n\nPlease create a new course by selecting the + button on the lower right hand corner. </string>
     <string name="startDate">select an start date</string>
     <string name="endDate">select an end date</string>
+    <string name="channel_name">myChannel</string>
+    <string name="channel_description">myChannelDescription</string>
+
 
     <string-array name="addAssessType">
         <item>Objective</item>

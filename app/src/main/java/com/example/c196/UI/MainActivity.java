@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+    public static int notificationAlertNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

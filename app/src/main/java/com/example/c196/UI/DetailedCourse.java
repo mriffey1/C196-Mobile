@@ -1,10 +1,15 @@
 package com.example.c196.UI;
 
+import static com.example.c196.UI.MainActivity.notificationAlertNumber;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -53,6 +59,10 @@ public class DetailedCourse extends AppCompatActivity {
     Course updatingCourse;
     Boolean existingCourse;
     ImageView shareNotes;
+    View notification;
+    private Course course;
+    CheckBox checkBoxStart;
+    CheckBox checkBoxEnd;
 
 
     /* Creating menu to display the delete button when modifying an existing entry only */
@@ -71,7 +81,6 @@ public class DetailedCourse extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.deleteBtn:
-
                 String status = courseStatus.getSelectedItem().toString();
                 String notes = courseNotes.getText().toString();
                 Course course = new Course(courseId, title, startDate, endDate, status, selectedInstructor, notes, termId);
@@ -88,6 +97,7 @@ public class DetailedCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_course);
+
         courseTitle = findViewById(R.id.courseTitle);
         courseStartDate = findViewById(R.id.courseStartDate);
         courseEndDate = findViewById(R.id.courseEndDate);
@@ -96,6 +106,8 @@ public class DetailedCourse extends AppCompatActivity {
         courseNotes = findViewById(R.id.courseNotes);
         shareNotes = findViewById(R.id.shareNotes);
         courseSaveBtn = findViewById(R.id.courseSaveBtn);
+        checkBoxStart = findViewById(R.id.checkBoxStart);
+        checkBoxEnd = findViewById(R.id.checkBoxEnd);
         newInstructor = findViewById(R.id.newInstructor);
         instructNameField = findViewById(R.id.instructNameField);
         instructPhoneField = findViewById(R.id.instructPhoneField);
@@ -298,18 +310,26 @@ public class DetailedCourse extends AppCompatActivity {
                 Toast.makeText(this, "Please add an instructor.", Toast.LENGTH_LONG).show();
                 return;
             }
+
             if (repository.getCourses().size() == 0) {
                 courseId = 1;
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
                 repository.insert(course);
             } else if (courseId != -1) {
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                if (checkBoxStart.isChecked()) {
+                    startNotification();
+                }
+                if (checkBoxEnd.isChecked()) {
+                    endNotification();
+                }
                 repository.update(course);
             } else {
                 courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
                 repository.insert(course);
             }
+
             Intent intent = new Intent(DetailedCourse.this, CourseList.class);
             startActivity(intent);
         });
@@ -334,5 +354,37 @@ public class DetailedCourse extends AppCompatActivity {
             SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             courseEndDate.setText(format1.format(calendarEnd.getTime()));
         }
+    }
+
+    private void startNotification() {
+        String dateFromScreen = courseStartDate.getText().toString();
+        Date notificationActivity = null;
+        try {
+            notificationActivity = format1.parse(dateFromScreen);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Long trigger = notificationActivity.getTime();
+        Intent intentNotification = new Intent(DetailedCourse.this, MyReceiver.class);
+        intentNotification.putExtra("key", "Course: " + courseTitle.getText().toString() + " starts today");
+        PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+    }
+
+    private void endNotification() {
+        String dateFromScreen = courseEndDate.getText().toString();
+        Date notificationActivity = null;
+        try {
+            notificationActivity = format1.parse(dateFromScreen);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Long trigger = notificationActivity.getTime();
+        Intent intentNotification = new Intent(DetailedCourse.this, MyReceiver.class);
+        intentNotification.putExtra("key", "Course: " + courseTitle.getText().toString() + " ends today");
+        PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
     }
 }

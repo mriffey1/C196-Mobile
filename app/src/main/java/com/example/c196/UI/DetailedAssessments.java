@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.c196.Entity.Assessment;
 import com.example.c196.Entity.Course;
-import com.example.c196.Entity.Term;
+
 import com.example.c196.R;
 import com.example.c196.db.Repository;
 
@@ -43,11 +43,10 @@ public class DetailedAssessments extends AppCompatActivity {
 
     EditText textTitle, startDateAssess, endDateAssess;
     Spinner assessmentType, assessmentCourseSpinner;
-    String type;
+    String type, title;
     int assessmentId, assessmentCourseId, selectedCourse;
     Button saveBtn, deleteBtn;
     Date startDate, endDate;
-    String title;
     Assessment updatingAssessment;
 
     boolean existingAssessment = false;
@@ -70,7 +69,7 @@ public class DetailedAssessments extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.deleteBtn:
                 Assessment assessment = new Assessment(assessmentId, title, startDate, endDate, type, selectedCourse);
-                Toast.makeText(this, "Course has been deleted", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Assessment has been deleted", Toast.LENGTH_LONG).show();
                 repository.delete(assessment);
                 Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
                 startActivity(intent);

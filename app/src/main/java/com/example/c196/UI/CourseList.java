@@ -21,7 +21,7 @@ public class CourseList extends AppCompatActivity {
     private TextView emptyView;
     private Course course;
     int termId;
-    Repository repository = new Repository(getApplication());
+
 
     boolean existingCourse = false;
     @Override
@@ -94,8 +94,12 @@ public class CourseList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
     public boolean onCreationOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.term_action_bar, menu);
         return true;
     }
+
+
 }
