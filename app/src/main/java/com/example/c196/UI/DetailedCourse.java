@@ -335,18 +335,18 @@ public class DetailedCourse extends AppCompatActivity {
                 Toast.makeText(this, "Please add an instructor.", Toast.LENGTH_LONG).show();
                 return;
             }
+            if (checkBoxStart.isChecked()) {
+                startNotification();
+            }
+            if (checkBoxEnd.isChecked()) {
+                endNotification();
+            }
             if (repository.getCourses().size() == 0) {
                 courseId = 1;
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
                 repository.insert(course);
             } else if (courseId != -1) {
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
-                if (checkBoxStart.isChecked()) {
-                    startNotification();
-                }
-                if (checkBoxEnd.isChecked()) {
-                    endNotification();
-                }
                 repository.update(course);
             } else {
                 courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
@@ -392,7 +392,7 @@ public class DetailedCourse extends AppCompatActivity {
         Long trigger = notificationActivity.getTime();
         Intent intentNotification = new Intent(DetailedCourse.this, MyReceiver.class);
         intentNotification.putExtra("key", "Course: " + courseTitle.getText().toString() + " starts today");
-        PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, 0);
+        PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
     }
@@ -409,7 +409,7 @@ public class DetailedCourse extends AppCompatActivity {
         Long trigger = notificationActivity.getTime();
         Intent intentNotification = new Intent(DetailedCourse.this, MyReceiver.class);
         intentNotification.putExtra("key", "Course: " + courseTitle.getText().toString() + " ends today");
-        PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
     }
