@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.c196.Entity.Assessment;
 import com.example.c196.Entity.Instructor;
 import com.example.c196.R;
 import com.example.c196.db.Repository;

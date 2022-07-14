@@ -14,7 +14,6 @@ import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Term;
 import com.example.c196.R;
 
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

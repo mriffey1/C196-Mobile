@@ -52,19 +52,16 @@ public class DetailedCourse extends AppCompatActivity {
 
     EditText courseStartDate, courseEndDate, courseTitle, courseNotes;
     Spinner courseStatus, courseInstructor, termCourseSpinner;
-    Button courseSaveBtn, newInstructor;
+    Button courseSaveBtn;
     Date startDate, endDate;
     String title;
     int instructorId, selectedInstructor, courseId, termId, selectedTerm;
     Course updatingCourse;
     Boolean existingCourse;
     ImageView shareNotes;
-    View notification;
-    private Course course;
     CheckBox checkBoxStart;
     CheckBox checkBoxEnd;
     private TextView emptyView;
-    private TextView emptyView2;
 
     List<Assessment> allAssessments;
     List<Assessment> associatedAssessments;
@@ -128,32 +125,22 @@ public class DetailedCourse extends AppCompatActivity {
         termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         termCourseSpinner.setAdapter(termAdapter);
 
-        termCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedTerm = termList.get(i).getTermId();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
+        /* Spinner for Course Status */
+        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.courseStatusString, android.R.layout.simple_spinner_dropdown_item);
+        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseStatus.setAdapter(statusAdapter);
+        String currentStatus = getIntent().getStringExtra("type");
+        int intStatus = statusAdapter.getPosition(currentStatus);
+        courseStatus.setSelection(intStatus);
 
         /* Spinner to display all instructors in dropdown */
         List<Instructor> instructorList = repository.getInstructors();
         ArrayAdapter<Instructor> instructAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
-        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        instructAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseInstructor.setAdapter(instructAdapter);
-        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedInstructor = instructorList.get(i).getInstructorId();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+
 
         /* Converting database value for start date to string */
         Long start = getIntent().getLongExtra("start", -1);
@@ -278,13 +265,7 @@ public class DetailedCourse extends AppCompatActivity {
             emptyView.setVisibility(View.GONE);
         }
 
-        /* Spinner for Course Status */
-        ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.courseStatusString, android.R.layout.simple_spinner_dropdown_item);
-        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseStatus.setAdapter(statusAdapter);
-        String currentStatus = getIntent().getStringExtra("type");
-        int intStatus = statusAdapter.getPosition(currentStatus);
-        courseStatus.setSelection(intStatus);
+
 
         /* Icon to click on for sharing notes. If no text is present in the Notes field - an error
         message will display */
@@ -304,6 +285,27 @@ public class DetailedCourse extends AppCompatActivity {
 
         });
 
+        termCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedTerm = termList.get(i).getTermId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
+
+//        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                selectedInstructor = instructorList.get(i).getInstructorId();
+//            }
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//            }
+//        });
         /* Save button listener. */
         courseSaveBtn.setOnClickListener(view -> {
             String title = courseTitle.getText().toString();
@@ -360,8 +362,6 @@ public class DetailedCourse extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
-
 
 
     /* Method to update labels for start and end date */
