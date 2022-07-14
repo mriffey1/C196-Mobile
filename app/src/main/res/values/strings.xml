@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">WGU C196 Course</string>
     <string name="no_data_terms">Currently, no Terms exist. \n\nPlease create a new term by selecting the + button on the lower right hand corner. </string>
+    <string name="no_data_instructor">Currently, no instructors exist. \n\nPlease create a new instructor by selecting the + button on the lower right hand corner. </string>
     <string name="no_data_termCourses">No associated courses exist for this term. </string>
     <string name="no_data_courseAssessments">No associated assessments exist for this course.</string>
+
     <string name="no_data_assessments">Currently, no assessments exist. \n\nPlease create a new assessment by selecting the + button on the lower right hand corner. </string>
     <string name="no_data_courses">Currently, no courses exist. \n\nPlease create a new course by selecting the + button on the lower right hand corner. </string>
     <string name="startDate">select an start date</string>

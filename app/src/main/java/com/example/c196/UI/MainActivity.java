@@ -34,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     /* Intent activity for button to view Course List */
+    public void viewInstructors(View view) {
+        Intent intent = new Intent(MainActivity.this, InstructorList.class);
+        startActivity(intent);
+    }
+
+    /* Intent activity for button to view Course List */
     public void viewCourses(View view) {
         Intent intent = new Intent(MainActivity.this, CourseList.class);
         startActivity(intent);

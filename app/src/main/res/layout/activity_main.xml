@@ -22,7 +22,7 @@
         android:layout_width="150dp"
         android:layout_height="105dp"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="119dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="150dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.512"
@@ -48,13 +48,14 @@
         android:id="@+id/button"
         android:layout_width="210dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="23dp"
         android:onClick="viewCourses"
-        android:text="Step 2: Courses"
+        android:text="Step 3: Courses"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/viewInstructors" />
 
     <Button
         android:id="@+id/button2"
@@ -62,10 +63,23 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="23dp"
         android:onClick="viewAssessments"
-        android:text="Step 3: Assessments"
+        android:text="Step 4: Assessments"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/viewInstructors"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:text="Step 2: Instructors"
+        android:textColor="@color/white"
+        android:onClick="viewInstructors"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

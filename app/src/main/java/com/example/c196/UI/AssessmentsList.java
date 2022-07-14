@@ -47,6 +47,10 @@ public class AssessmentsList extends AppCompatActivity {
                 return true;
             case R.id.assessmentsHome:
                 return false;
+            case R.id.instructorsHome:
+                Intent instructorsHome = new Intent(AssessmentsList.this, InstructorList.class);
+                startActivity(instructorsHome);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

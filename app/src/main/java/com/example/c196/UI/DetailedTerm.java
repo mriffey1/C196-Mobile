@@ -219,13 +219,16 @@ public class DetailedTerm extends AppCompatActivity {
                 if (repository.getTerms().size() == 0) {
                     termId = 1;
                     Term term = new Term(termId, title, finalStart, finalEnd);
+                    Toast.makeText(this, "Term has been added.", Toast.LENGTH_LONG).show();
                     repository.insert(term);
                 } else if (termId != -1) {
                     Term term = new Term(termId, title, finalStart, finalEnd);
+                    Toast.makeText(this, "Term has been updated.", Toast.LENGTH_LONG).show();
                     repository.update(term);
                 } else {
                     termId = repository.getTerms().get(repository.getTerms().size() - 1).getTermId() + 1;
                     Term term = new Term(termId, title, finalStart, finalEnd);
+                    Toast.makeText(this, "Term has been added.", Toast.LENGTH_LONG).show();
                     repository.insert(term);
                 }
             }

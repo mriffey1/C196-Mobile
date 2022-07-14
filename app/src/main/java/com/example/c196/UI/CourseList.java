@@ -48,6 +48,10 @@ public class CourseList extends AppCompatActivity {
                 Intent assessmentHome = new Intent(CourseList.this, AssessmentsList.class);
                 startActivity(assessmentHome);
                 return true;
+            case R.id.instructorsHome:
+                Intent instructorsHome = new Intent(CourseList.this, InstructorList.class);
+                startActivity(instructorsHome);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

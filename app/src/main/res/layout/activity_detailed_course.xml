@@ -40,55 +40,47 @@
 
         <TextView
             android:id="@+id/textView6"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
             android:text="Start Date:"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courseTitle" />
 
         <EditText
             android:id="@+id/courseStartDate"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
             android:focusableInTouchMode="false"
             android:text="@string/startDate"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/textView8"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
             android:text="End Date:"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courseStartDate" />
 
         <EditText
             android:id="@+id/courseEndDate"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
             android:focusableInTouchMode="false"
             android:text="@string/startDate"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -98,10 +90,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
             android:text="Course Status:"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courseEndDate" />
 
@@ -111,8 +101,6 @@
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -131,29 +119,13 @@
 
         <Spinner
             android:id="@+id/courseInstructor"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-        <Button
-            android:id="@+id/newInstructor"
-            android:layout_width="196dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
-            android:insetLeft="1dp"
-            android:insetTop="6dp"
-            android:insetBottom="6dp"
-            android:text="New Instructor"
-            android:textColor="@color/white"
-            android:textSize="11sp"
-            app:iconPadding="0dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/courseInstructor"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
         <EditText
@@ -161,7 +133,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:gravity="start|top"
@@ -170,7 +142,7 @@
             android:maxLines="10"
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
@@ -178,13 +150,10 @@
             android:id="@+id/shareNotes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginBottom="1dp"
-            app:layout_constraintBottom_toTopOf="@+id/courseNotes"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintStart_toEndOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/instructEmailField"
-            app:layout_constraintVertical_bias="0.769"
+            app:layout_constraintTop_toBottomOf="@+id/courseInstructor"
             app:srcCompat="?attr/actionModeShareDrawable" />
 
         <TextView
@@ -192,13 +161,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="5dp"
             android:text="Notes:"
             android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/shareNotes"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/instructNameField" />
+            app:layout_constraintTop_toBottomOf="@+id/courseInstructor" />
 
         <Button
             android:id="@+id/courseSaveBtn"
@@ -213,49 +182,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/assessments_courses" />
-
-        <TextView
-            android:id="@+id/instructNameField"
-            android:layout_width="125dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="2dp"
-            android:text="Name"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/instructPhoneField"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courseInstructor" />
-
-        <TextView
-            android:id="@+id/instructPhoneField"
-            android:layout_width="100dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="50dp"
-            android:text="Phone #"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/courseNotes"
-            app:layout_constraintStart_toEndOf="@+id/instructNameField"
-            app:layout_constraintTop_toBottomOf="@+id/newInstructor" />
-
-        <TextView
-            android:id="@+id/instructEmailField"
-            android:layout_width="150dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="50dp"
-            android:text="Email Address"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/courseNotes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/newInstructor"
-            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView21"
@@ -286,15 +212,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
+
             android:layout_marginEnd="16dp"
             android:text="Assessments Associated with Course:"
-            
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxStart" />
+            app:layout_constraintTop_toBottomOf="@+id/instructorInfoView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/assessments_courses"
@@ -311,7 +237,7 @@
             android:id="@+id/checkBoxStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="39dp"
+            android:layout_marginStart="204dp"
             android:layout_marginTop="2dp"
             android:text="Start Date"
             app:layout_constraintStart_toStartOf="parent"
@@ -321,39 +247,49 @@
             android:id="@+id/checkBoxEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="50dp"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="4dp"
             android:text="End Date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintStart_toEndOf="@+id/courseEndDate"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxStart" />
 
         <TextView
             android:id="@+id/textView15"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="112dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
             android:text="Alert Reminders:"
-            
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courseNotes" />
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/courseTitle" />
 
         <TextView
             android:id="@+id/empty_view_course"
             android:layout_width="378dp"
             android:layout_height="109dp"
-            android:visibility="gone"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="16dp"
             android:text="@string/no_data_courseAssessments"
             android:textSize="16sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/instructorInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseNotes" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

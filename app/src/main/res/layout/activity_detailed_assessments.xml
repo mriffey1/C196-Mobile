@@ -28,57 +28,49 @@
 
         <TextView
             android:id="@+id/startLabel"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
             android:text="Start Date:"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
         <EditText
             android:id="@+id/startDateAssess"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
             android:ems="10"
             android:focusableInTouchMode="false"
             android:inputType="date"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startLabel" />
 
         <TextView
             android:id="@+id/labelEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
             android:text="End Date"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startDateAssess" />
 
         <EditText
             android:id="@+id/endDateAssess"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="16dp"
             android:ems="10"
             android:focusableInTouchMode="false"
             android:inputType="date"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/labelEnd" />
 
@@ -183,6 +175,37 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+        <CheckBox
+            android:id="@+id/assessStartCheckBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="2dp"
+            android:text="Start Date"
+            app:layout_constraintStart_toEndOf="@+id/startDateAssess"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <CheckBox
+            android:id="@+id/assessEndCheckBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="2dp"
+            android:text="End Date"
+            app:layout_constraintStart_toEndOf="@+id/endDateAssess"
+            app:layout_constraintTop_toBottomOf="@+id/assessStartCheckBtn" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="143dp"
+            android:layout_marginTop="10dp"
+            android:text="Alert Reminders:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/startLabel"
+            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

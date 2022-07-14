@@ -51,7 +51,6 @@ public class DetailedCourse extends AppCompatActivity {
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
 
     EditText courseStartDate, courseEndDate, courseTitle, courseNotes;
-    TextView instructNameField, instructPhoneField, instructEmailField;
     Spinner courseStatus, courseInstructor, termCourseSpinner;
     Button courseSaveBtn, newInstructor;
     Date startDate, endDate;
@@ -65,9 +64,12 @@ public class DetailedCourse extends AppCompatActivity {
     CheckBox checkBoxStart;
     CheckBox checkBoxEnd;
     private TextView emptyView;
+    private TextView emptyView2;
 
     List<Assessment> allAssessments;
     List<Assessment> associatedAssessments;
+    List<Instructor> allInstructors;
+    List<Instructor> associatedInstructors;
 
     /* Creating menu to display the delete button when modifying an existing entry only */
     @Override
@@ -111,10 +113,6 @@ public class DetailedCourse extends AppCompatActivity {
         courseSaveBtn = findViewById(R.id.courseSaveBtn);
         checkBoxStart = findViewById(R.id.checkBoxStart);
         checkBoxEnd = findViewById(R.id.checkBoxEnd);
-        newInstructor = findViewById(R.id.newInstructor);
-        instructNameField = findViewById(R.id.instructNameField);
-        instructPhoneField = findViewById(R.id.instructPhoneField);
-        instructEmailField = findViewById(R.id.instructEmailField);
         termCourseSpinner = findViewById(R.id.termCourseSpinner);
         instructorId = getIntent().getIntExtra("instructorId", -1);
         courseNotes = findViewById(R.id.courseNotes);
@@ -135,12 +133,27 @@ public class DetailedCourse extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedTerm = termList.get(i).getTermId();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
+
+        /* Spinner to display all instructors in dropdown */
+        List<Instructor> instructorList = repository.getInstructors();
+        ArrayAdapter<Instructor> instructAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseInstructor.setAdapter(instructAdapter);
+        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedInstructor = instructorList.get(i).getInstructorId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         /* Converting database value for start date to string */
         Long start = getIntent().getLongExtra("start", -1);
@@ -216,44 +229,29 @@ public class DetailedCourse extends AppCompatActivity {
             }
         };
 
-        newInstructor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DetailedCourse.this, AddInstructor.class);
-                startActivity(intent);
-            }
-        });
 
-        /* Spinner for Instructors */
 
-        List<Instructor> instructorList = repository.getInstructors();
-        ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
-        courseInstructor.getAdapter();
-        courseInstructor.setAdapter(typeAdapter);
-        for (int i = 0; instructorList.size() > i; i++) {
-            if (instructorList.get(i).getInstructorId() == instructorId) {
-                courseInstructor.setSelection(i);
+        /* Array list for getting instructor and displaying them in the  RecyclerView */
+        allInstructors = repository.getInstructors();
+        associatedInstructors = new ArrayList<>();
+        for (Instructor i : allInstructors) {
+            if (i.getInstructorId() == instructorId) {
+                associatedInstructors.add(i);
             }
         }
-        /* Displaying instructor information for the selected instructor in the spinner */
-        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String name = instructorList.get(i).getInstructorName();
-                String phone = instructorList.get(i).getInstructorPhone();
-                String email = instructorList.get(i).getInstructorEmail();
-                instructNameField.setText(name);
-                instructPhoneField.setText(phone);
-                instructEmailField.setText(email);
-            }
+        RecyclerView associatedInstructView = findViewById(R.id.instructorInfoView);
+        final InstructorAdapter instructorAdapter = new InstructorAdapter(this);
+        associatedInstructView.setAdapter(instructorAdapter);
+        associatedInstructView.setLayoutManager(new LinearLayoutManager(this));
+        instructorAdapter.setInstructors(associatedInstructors);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+        /* Displaying a message if no associated assessments exist */
 
-        onRestart();
+        if (associatedInstructors.isEmpty()) {
+            associatedInstructView.setVisibility(View.GONE);
+        } else {
+            associatedInstructView.setVisibility(View.VISIBLE);
+        }
 
         /* Array list for getting associated assessments and displaying them in the associatedCoursesView RecyclerView */
         allAssessments = repository.getAssessments();
@@ -346,13 +344,16 @@ public class DetailedCourse extends AppCompatActivity {
             if (repository.getCourses().size() == 0) {
                 courseId = 1;
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                Toast.makeText(this, "Course has been added.", Toast.LENGTH_LONG).show();
                 repository.insert(course);
             } else if (courseId != -1) {
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                Toast.makeText(this, "Course has been updated.", Toast.LENGTH_LONG).show();
                 repository.update(course);
             } else {
                 courseId = repository.getCourses().get(repository.getCourses().size() - 1).getCourseId() + 1;
                 Course course = new Course(courseId, title, finalStart, finalEnd, status, selectedInstructor, notes1, selectedTerm);
+                Toast.makeText(this, "Course has been added.", Toast.LENGTH_LONG).show();
                 repository.insert(course);
             }
             Intent intent = new Intent(DetailedCourse.this, CourseList.class);
@@ -360,14 +361,8 @@ public class DetailedCourse extends AppCompatActivity {
         });
     }
 
-    /* Reloading instructor spinner data when new instructor is added */
-    public void onRestart() {
-        super.onRestart();
-        List<Instructor> instructorList = repository.getInstructors();
-        ArrayAdapter<Instructor> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
-        courseInstructor.getAdapter();
-        courseInstructor.setAdapter(typeAdapter);
-    }
+
+
 
     /* Method to update labels for start and end date */
     private void updateLabel(boolean value) {

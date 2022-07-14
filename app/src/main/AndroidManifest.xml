@@ -44,6 +44,12 @@
             android:parentActivityName=".UI.MainActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
+            android:name=".UI.InstructorList"
+            android:exported="false"
+            android:label="All Instructors"
+            android:parentActivityName=".UI.MainActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".UI.CourseList"
             android:exported="false"
             android:label="All Courses"
@@ -53,7 +59,7 @@
             android:name=".UI.AddInstructor"
             android:exported="false"
             android:label="Add Instructor"
-            android:parentActivityName=".UI.DetailedCourse"
+            android:parentActivityName=".UI.InstructorList"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".UI.TermList"

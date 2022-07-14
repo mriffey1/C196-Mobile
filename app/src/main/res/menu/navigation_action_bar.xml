@@ -6,6 +6,10 @@
         android:orderInCategory="100"
         android:title="Terms" />
     <item
+        android:id="@+id/instructorsHome"
+        android:orderInCategory="100"
+        android:title="Instructors" />
+    <item
         android:id="@+id/coursesHome"
         android:orderInCategory="100"
         android:title="Courses" />

@@ -11,23 +11,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.c196.Entity.Term;
+import com.example.c196.Entity.Assessment;
+import com.example.c196.Entity.Instructor;
 import com.example.c196.R;
 import com.example.c196.db.Repository;
 
 import java.util.List;
 
-public class TermList extends AppCompatActivity {
+public class InstructorList extends AppCompatActivity {
     private TextView emptyView;
-    boolean existingTerm = false;
+    boolean existingInstructor = false;
 
     /* Menu to navigate between the Assessment List, Term List and Course List without having
      * to return to the home screen. */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.navigation_action_bar, menu);
-        if (!existingTerm) {
-            menu.findItem(R.id.termsHome).setVisible(false);
+        if (!existingInstructor) {
+            menu.findItem(R.id.instructorsHome).setVisible(false);
         }
         return true;
     }
@@ -38,19 +39,19 @@ public class TermList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.termsHome:
-                return false;
+                Intent termsHome = new Intent(InstructorList.this, TermList.class);
+                startActivity(termsHome);
+                return true;
             case R.id.coursesHome:
-                Intent courseHome = new Intent(TermList.this, CourseList.class);
+                Intent courseHome = new Intent(InstructorList.this, CourseList.class);
                 startActivity(courseHome);
                 return true;
             case R.id.assessmentsHome:
-                Intent assessmentHome = new Intent(TermList.this, AssessmentsList.class);
+                Intent assessmentHome = new Intent(InstructorList.this, AssessmentsList.class);
                 startActivity(assessmentHome);
                 return true;
             case R.id.instructorsHome:
-                Intent instructorsHome = new Intent(TermList.this, InstructorList.class);
-                startActivity(instructorsHome);
-                return true;
+                return false;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -58,19 +59,21 @@ public class TermList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_term_list);
+        setContentView(R.layout.activity_instructor_list);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /* RecycleView for term list and empty view when no term data is present. */
-        RecyclerView recyclerView = findViewById(R.id.recycleview);
-        emptyView = (TextView) findViewById(R.id.empty_view);
+        /* Retrieving a list of all assessments and displaying in the recycler view. If no
+        assessments exist, a message will be displayed */
+        RecyclerView recyclerView = findViewById(R.id.instructorRecycle);
+        emptyView = (TextView) findViewById(R.id.instructorEmptyView);
         Repository repository = new Repository(getApplication());
-        List<Term> terms = repository.getTerms();
-        final TermAdapter adapter = new TermAdapter(this);
+        List<Instructor> instructors = repository.getInstructors();
+        final InstructorAdapter adapter = new InstructorAdapter(this);
         recyclerView.setAdapter(adapter);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setTerms(terms);
-        if (terms.isEmpty()) {
+        adapter.setInstructors(instructors);
+        if (instructors.isEmpty()) {
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         } else {
@@ -80,9 +83,10 @@ public class TermList extends AppCompatActivity {
     }
 
 
-    /* Add term button to add a new term into the database. */
-    public void addTerm(View view) {
-        Intent intent = new Intent(TermList.this, DetailedTerm.class);
+    /* Floating icon to add a new assessment */
+    public void addInstructor(View view) {
+        Intent intent = new Intent(InstructorList.this, AddInstructor.class);
         startActivity(intent);
+
     }
 }

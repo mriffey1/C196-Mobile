@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -49,6 +53,8 @@ public class DetailedAssessments extends AppCompatActivity {
     Button saveBtn, deleteBtn;
     Date startDate, endDate;
     Assessment updatingAssessment;
+    CheckBox assessStartCheckBtn;
+    CheckBox assessEndCheckBtn;
 
     boolean existingAssessment = false;
     private TextView emptyView;
@@ -95,6 +101,8 @@ public class DetailedAssessments extends AppCompatActivity {
         endDateAssess = findViewById(R.id.endDateAssess);
         assessmentType = findViewById(R.id.assessmentType);
         saveBtn = findViewById(R.id.saveBtn);
+        assessStartCheckBtn = findViewById(R.id.assessStartCheckBtn);
+        assessEndCheckBtn = findViewById(R.id.assessEndCheckBtn);
         assessmentId = getIntent().getIntExtra("id", -1);
         assessmentCourseId = getIntent().getIntExtra("cid", -1);
         title = getIntent().getStringExtra("title");
@@ -114,6 +122,7 @@ public class DetailedAssessments extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedCourse = courseList.get(i).getCourseId();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -232,16 +241,25 @@ public class DetailedAssessments extends AppCompatActivity {
                 Toast.makeText(this, "Please check your start and end date.", Toast.LENGTH_LONG).show();
                 return;
             }
+            if (assessStartCheckBtn.isChecked()) {
+                startNotification();
+            }
+            if (assessEndCheckBtn.isChecked()) {
+                endNotification();
+            }
             if (repository.getAssessments().size() == 0) {
                 assessmentId = 1;
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
+                Toast.makeText(this, "Course has been added.", Toast.LENGTH_LONG).show();
                 repository.insert(assessment);
             } else if (assessmentId != -1) {
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
+                Toast.makeText(this, "Course has been updated.", Toast.LENGTH_LONG).show();
                 repository.update(assessment);
             } else {
                 assessmentId = repository.getAssessments().get(repository.getAssessments().size() - 1).getAssessmentId() + 1;
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
+                Toast.makeText(this, "Course has been added.", Toast.LENGTH_LONG).show();
                 repository.insert(assessment);
             }
             Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
@@ -260,5 +278,39 @@ public class DetailedAssessments extends AppCompatActivity {
             SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
             endDateAssess.setText(format1.format(calendarEnd.getTime()));
         }
+    }
+
+    /* Notification alert for start date on course */
+    private void startNotification() {
+        String dateFromScreen = startDateAssess.getText().toString();
+        Date notificationActivity = null;
+        try {
+            notificationActivity = format1.parse(dateFromScreen);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Long trigger = notificationActivity.getTime();
+        Intent intentNotification = new Intent(DetailedAssessments.this, MyReceiver.class);
+        intentNotification.putExtra("key", "Assessment: " + textTitle.getText().toString() + " starts today");
+        PendingIntent sender = PendingIntent.getBroadcast(DetailedAssessments.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+    }
+
+    /* Notification alert for end date on course */
+    private void endNotification() {
+        String dateFromScreen = endDateAssess.getText().toString();
+        Date notificationActivity = null;
+        try {
+            notificationActivity = format1.parse(dateFromScreen);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Long trigger = notificationActivity.getTime();
+        Intent intentNotification = new Intent(DetailedAssessments.this, MyReceiver.class);
+        intentNotification.putExtra("key", "Assessment: " + textTitle.getText().toString() + " ends today");
+        PendingIntent sender = PendingIntent.getBroadcast(DetailedAssessments.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
     }
 }
