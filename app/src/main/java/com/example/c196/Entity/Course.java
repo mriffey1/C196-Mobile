@@ -24,6 +24,16 @@ public class Course {
     private String courseOptionalNotes;
     private int termId;
 
+    public Course(int courseId, String courseName, Date courseStart, Date courseEnd, String courseStatus, int instructorId, String courseOptionalNotes, int termId) {
+        this.courseId = courseId;
+        this.courseName = courseName;
+        this.courseStart = courseStart;
+        this.courseEnd = courseEnd;
+        this.courseStatus = courseStatus;
+        this.instructorId = instructorId;
+        this.courseOptionalNotes = courseOptionalNotes;
+        this.termId = termId;
+    }
 
     public int getCourseId() {
         return courseId;
@@ -90,16 +100,7 @@ public class Course {
         this.termId = termId;
     }
 
-    public Course(int courseId, String courseName, Date courseStart, Date courseEnd, String courseStatus, int instructorId, String courseOptionalNotes, int termId) {
-        this.courseId = courseId;
-        this.courseName = courseName;
-        this.courseStart = courseStart;
-        this.courseEnd = courseEnd;
-        this.courseStatus = courseStatus;
-        this.instructorId = instructorId;
-        this.courseOptionalNotes = courseOptionalNotes;
-        this.termId = termId;
-    }
+
 
     @Override
     public String toString() {

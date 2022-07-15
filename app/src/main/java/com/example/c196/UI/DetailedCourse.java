@@ -43,10 +43,13 @@ import java.util.Locale;
 
 public class DetailedCourse extends AppCompatActivity {
     Repository repository = new Repository(getApplication());
+
     DatePickerDialog.OnDateSetListener listenStart;
     DatePickerDialog.OnDateSetListener listenEnd;
+
     final Calendar calendarStart = Calendar.getInstance();
     final Calendar calendarEnd = Calendar.getInstance();
+
     String format = "MM/dd/yy";
     SimpleDateFormat format1 = new SimpleDateFormat(format, Locale.US);
 
@@ -62,6 +65,8 @@ public class DetailedCourse extends AppCompatActivity {
     CheckBox checkBoxStart;
     CheckBox checkBoxEnd;
     private TextView emptyView;
+    private int id;
+    int termNum;
 
     List<Assessment> allAssessments;
     List<Assessment> associatedAssessments;
@@ -110,22 +115,37 @@ public class DetailedCourse extends AppCompatActivity {
         courseSaveBtn = findViewById(R.id.courseSaveBtn);
         checkBoxStart = findViewById(R.id.checkBoxStart);
         checkBoxEnd = findViewById(R.id.checkBoxEnd);
-        termCourseSpinner = findViewById(R.id.termCourseSpinner);
+
+        termId = getIntent().getIntExtra("termId", -1);
         instructorId = getIntent().getIntExtra("instructorId", -1);
         courseNotes = findViewById(R.id.courseNotes);
         courseId = getIntent().getIntExtra("id", -1);
-        termId = getIntent().getIntExtra("termId", -1);
         String notes = getIntent().getStringExtra("notes");
-        courseNotes.setText(notes);
         title = getIntent().getStringExtra("title");
 
-        /* Spinner to display all Terms in dropdown */
+
+        /* Spinner for all terms */
+        Spinner termCourseSpinner = (Spinner) findViewById(R.id.termCourseSpinner);
         List<Term> termList = repository.getTerms();
-        ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, termList);
-        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<Term> termAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, termList);
+        termAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         termCourseSpinner.setAdapter(termAdapter);
+        termCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedTerm = termList.get(i).getTermId();
+            }
 
-
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        for (int i = 0; i < termAdapter.getCount(); i++) {
+            if (termList.get(i).getTermId() == termId) {
+                termCourseSpinner.setSelection(i);
+                break;
+            }
+        }
         /* Spinner for Course Status */
         ArrayAdapter<CharSequence> statusAdapter = ArrayAdapter.createFromResource(this, R.array.courseStatusString, android.R.layout.simple_spinner_dropdown_item);
         statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -139,6 +159,23 @@ public class DetailedCourse extends AppCompatActivity {
         ArrayAdapter<Instructor> instructAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, instructorList);
         instructAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseInstructor.setAdapter(instructAdapter);
+        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedInstructor = instructorList.get(i).getInstructorId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+        for (int i = 0; i < instructAdapter.getCount(); i++) {
+            if (instructorList.get(i).getInstructorId() == instructorId) {
+                courseInstructor.setSelection(i);
+                break;
+            }
+        }
+
 
 
 
@@ -163,67 +200,24 @@ public class DetailedCourse extends AppCompatActivity {
             courseTitle.setText(title);
             courseStartDate.setText(startString);
             courseEndDate.setText(endString);
+            courseNotes.setText(notes);
         } else {
             existingCourse = false;
         }
 
-        /* Start Date Listener for date picker */
-        courseStartDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String info = courseStartDate.getText().toString();
-                try {
-                    calendarStart.setTime((Date) format1.parse(info));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                new DatePickerDialog(DetailedCourse.this, listenStart, calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH),
-                        calendarStart.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-        listenStart = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                calendarStart.set(Calendar.YEAR, year);
-                calendarStart.set(Calendar.MONTH, monthOfYear);
-                calendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(true);
-            }
-        };
 
-        /* End Date Listener for date picker */
-        courseEndDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String info = courseEndDate.getText().toString();
-                try {
-                    calendarEnd.setTime(format1.parse(info));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                new DatePickerDialog(DetailedCourse.this, listenEnd, calendarEnd.get(Calendar.YEAR), calendarEnd.get(Calendar.MONTH),
-                        calendarEnd.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-        listenEnd = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                boolean end = true;
-                calendarEnd.set(Calendar.YEAR, year);
-                calendarEnd.set(Calendar.MONTH, monthOfYear);
-                calendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel(false);
-            }
-        };
-
-
+        startDatePicker();
+        endDatePicker();
 
         /* Array list for getting instructor and displaying them in the  RecyclerView */
         allInstructors = repository.getInstructors();
         associatedInstructors = new ArrayList<>();
         for (Instructor i : allInstructors) {
             if (i.getInstructorId() == instructorId) {
-                associatedInstructors.add(i);
+                if (i.getInstructorId() == instructorId) {
+                    associatedInstructors.add(i);
+                }
+
             }
         }
         RecyclerView associatedInstructView = findViewById(R.id.instructorInfoView);
@@ -285,27 +279,11 @@ public class DetailedCourse extends AppCompatActivity {
 
         });
 
-        termCourseSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedTerm = termList.get(i).getTermId();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
 
 
 
-//        courseInstructor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                selectedInstructor = instructorList.get(i).getInstructorId();
-//            }
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//            }
-//        });
+
+
         /* Save button listener. */
         courseSaveBtn.setOnClickListener(view -> {
             String title = courseTitle.getText().toString();
@@ -321,10 +299,10 @@ public class DetailedCourse extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            if (termList.size() == 0) {
-                Toast.makeText(this, "Please add a term first before creating a course.", Toast.LENGTH_LONG).show();
-                return;
-            }
+//            if (termList.size() == 0) {
+//                Toast.makeText(this, "Please add a term first before creating a course.", Toast.LENGTH_LONG).show();
+//                return;
+//            }
             if (courseTitle.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter a course title.", Toast.LENGTH_LONG).show();
                 return;
@@ -410,4 +388,59 @@ public class DetailedCourse extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
     }
+
+    private void startDatePicker() {
+        /* Start Date Listener for date picker */
+        courseStartDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String info = courseStartDate.getText().toString();
+                try {
+                    calendarStart.setTime((Date) format1.parse(info));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                new DatePickerDialog(DetailedCourse.this, listenStart, calendarStart.get(Calendar.YEAR), calendarStart.get(Calendar.MONTH),
+                        calendarStart.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        listenStart = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendarStart.set(Calendar.YEAR, year);
+                calendarStart.set(Calendar.MONTH, monthOfYear);
+                calendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel(true);
+            }
+        };
+    }
+
+    private void endDatePicker() {
+        /* End Date Listener for date picker */
+        courseEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String info = courseEndDate.getText().toString();
+                try {
+                    calendarEnd.setTime(format1.parse(info));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                new DatePickerDialog(DetailedCourse.this, listenEnd, calendarEnd.get(Calendar.YEAR), calendarEnd.get(Calendar.MONTH),
+                        calendarEnd.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+        listenEnd = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                boolean end = true;
+                calendarEnd.set(Calendar.YEAR, year);
+                calendarEnd.set(Calendar.MONTH, monthOfYear);
+                calendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel(false);
+            }
+        };
+    }
+
+
 }

@@ -16,7 +16,7 @@ import com.example.c196.Entity.Course;
 import com.example.c196.Entity.Instructor;
 import com.example.c196.Entity.Term;
 
-@Database(entities={Assessment.class, Course.class, Term.class, Instructor.class}, version=4, exportSchema = false)
+@Database(entities={Assessment.class, Course.class, Term.class, Instructor.class}, version=5, exportSchema = false)
 @TypeConverters(DateConverter.class)
 public abstract class dbBuilder extends RoomDatabase {
     public abstract TermDAO termDAO();

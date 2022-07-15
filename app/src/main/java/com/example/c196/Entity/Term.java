@@ -1,6 +1,7 @@
 package com.example.c196.Entity;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ public class Term {
         this.termStart = termStart;
         this.termEnd = termEnd;
     }
+
 
     public void setTermId(int termId) {
         this.termId = termId;

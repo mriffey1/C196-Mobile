@@ -16,27 +16,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5c291ac5-12d1-4e73-b96f-ab9a113834a8" name="Changes" comment="instructors">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_add_instructor.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_assessments_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_course_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_detailed_assessments.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_detailed_term.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_instructor_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_term_list.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/assessment_list_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/course_list_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/instructor_list_item.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/term_list_item.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Term.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/Entity/Term.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedCourse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedCourse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedTerm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/DetailedTerm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/InstructorAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/InstructorAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/InstructorList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/InstructorList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/TermAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/UI/TermAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/c196/db/dbBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/c196/db/dbBuilder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +30,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" show_ignored="true" />
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[1B231FDEE006XC]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\akira\.android\avd\Pixel_XL_API_28.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -102,9 +88,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="android-custom-viewC:/Users/akira/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat/1.4.2/a0a6b931c735952c318e94c90b0239966c500c52/appcompat-1.4.2-sources.jar!/androidx/appcompat/widget/AppCompatSpinner.java_AppCompatSpinner_DIMENSIONS" value="1080&#10;1920" />
+    <property name="android-custom-viewC:/Users/akira/.gradle/caches/modules-2/files-2.1/androidx.appcompat/appcompat/1.4.2/a0a6b931c735952c318e94c90b0239966c500c52/appcompat-1.4.2-sources.jar!/androidx/appcompat/widget/AppCompatSpinner.java_SELECTED" value="AppCompatSpinner" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.android.tools.idea.sqlite.queryhistory" value="SELECT courses.*, terms.termName as term_title, terms.termStart as term_start_date, terms.termEnd as term_end_date FROM courses JOIN terms ON courses.termId = terms.termId ORDER BY terms.termStart, courses.courseStart&#10;SELECT * FROM courses JOIN terms ON terms.termId = courses.termId" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/C196-Android-Mobile-WGU-Scheduling-App-master" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/CaseyWhite-C196/CaseyWhiteC196" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -417,7 +405,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657835297422</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="instructors">
+      <created>1657839626167</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1657839626167</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
