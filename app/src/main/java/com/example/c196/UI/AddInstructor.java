@@ -73,6 +73,9 @@ public class AddInstructor extends AppCompatActivity {
             instructName.setText(name);
             instructPhone.setText(phone);
             instructEmail.setText(email);
+            getSupportActionBar().setTitle("Edit Instructor");
+        } else {
+            getSupportActionBar().setTitle("Add Instructor");
         }
 
         instructSaveBtn.setOnClickListener(view -> {

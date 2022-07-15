@@ -201,8 +201,10 @@ public class DetailedCourse extends AppCompatActivity {
             courseStartDate.setText(startString);
             courseEndDate.setText(endString);
             courseNotes.setText(notes);
+            getSupportActionBar().setTitle("Edit Course");
         } else {
             existingCourse = false;
+            getSupportActionBar().setTitle("Add Course");
         }
 
 
@@ -227,7 +229,6 @@ public class DetailedCourse extends AppCompatActivity {
         instructorAdapter.setInstructors(associatedInstructors);
 
         /* Displaying a message if no associated assessments exist */
-
         if (associatedInstructors.isEmpty()) {
             associatedInstructView.setVisibility(View.GONE);
         } else {
@@ -279,11 +280,6 @@ public class DetailedCourse extends AppCompatActivity {
 
         });
 
-
-
-
-
-
         /* Save button listener. */
         courseSaveBtn.setOnClickListener(view -> {
             String title = courseTitle.getText().toString();
@@ -299,10 +295,10 @@ public class DetailedCourse extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-//            if (termList.size() == 0) {
-//                Toast.makeText(this, "Please add a term first before creating a course.", Toast.LENGTH_LONG).show();
-//                return;
-//            }
+            if (termList.size() == 0) {
+                Toast.makeText(this, "Please add a term first before creating a course.", Toast.LENGTH_LONG).show();
+                return;
+            }
             if (courseTitle.getText().toString().isEmpty()) {
                 Toast.makeText(this, "Please enter a course title.", Toast.LENGTH_LONG).show();
                 return;
@@ -340,7 +336,6 @@ public class DetailedCourse extends AppCompatActivity {
             startActivity(intent);
         });
     }
-
 
     /* Method to update labels for start and end date */
     private void updateLabel(boolean value) {
@@ -441,6 +436,4 @@ public class DetailedCourse extends AppCompatActivity {
             }
         };
     }
-
-
 }

@@ -79,7 +79,6 @@ public class TermList extends AppCompatActivity {
         }
     }
 
-
     /* Add term button to add a new term into the database. */
     public void addTerm(View view) {
         Intent intent = new Intent(TermList.this, DetailedTerm.class);

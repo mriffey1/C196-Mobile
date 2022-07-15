@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".UI.DetailedCourse">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="Course Title:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/termCourseSpinner" />
+
+        <EditText
+            android:id="@+id/courseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Enter Course Title"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="Start Date:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseTitle" />
+
+        <EditText
+            android:id="@+id/courseStartDate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:focusableInTouchMode="false"
+            android:text="@string/startDate"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="End Date:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseStartDate" />
+
+        <EditText
+            android:id="@+id/courseEndDate"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:focusableInTouchMode="false"
+            android:text="@string/startDate"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:text="Course Status:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseEndDate" />
+
+        <Spinner
+            android:id="@+id/courseStatus"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:text="Instructors:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseStatus" />
+
+        <Spinner
+            android:id="@+id/courseInstructor"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <EditText
+            android:id="@+id/courseNotes"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Enter Notes (Optional)"
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:scrollbars="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+        <ImageView
+            android:id="@+id/shareNotes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toEndOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/courseInstructor"
+            app:srcCompat="?attr/actionModeShareDrawable" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="5dp"
+            android:text="Notes:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/shareNotes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseInstructor" />
+
+        <Button
+            android:id="@+id/courseSaveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="161dp"
+            android:layout_marginTop="51dp"
+            android:layout_marginEnd="162dp"
+            android:text="Save"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assessments_courses" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:text="Select Term:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/termCourseSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+
+            android:layout_marginEnd="16dp"
+            android:text="Assessments Associated with Course:"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/instructorInfoView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/assessments_courses"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <CheckBox
+            android:id="@+id/checkBoxStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="204dp"
+            android:layout_marginTop="2dp"
+            android:text="Start Date"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+        <CheckBox
+            android:id="@+id/checkBoxEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="4dp"
+            android:text="End Date"
+            app:layout_constraintStart_toEndOf="@+id/courseEndDate"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxStart" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="112dp"
+            android:layout_marginTop="10dp"
+            android:text="Alert Reminders:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/courseTitle" />
+
+        <TextView
+            android:id="@+id/empty_view_course"
+            android:layout_width="378dp"
+            android:layout_height="109dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/no_data_courseAssessments"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/instructorInfoView"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/courseNotes" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

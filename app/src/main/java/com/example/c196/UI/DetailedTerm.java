@@ -120,6 +120,9 @@ public class DetailedTerm extends AppCompatActivity {
             termTitle.setText(title);
             startDateTerm.setText(startString);
             endDateTerm.setText(endString);
+            getSupportActionBar().setTitle("Edit Term");
+        } else {
+            getSupportActionBar().setTitle("New Term");
         }
         /* Start Date Listener for date picker */
         startDateTerm.setOnClickListener(new View.OnClickListener() {

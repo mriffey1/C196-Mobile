@@ -158,6 +158,9 @@ public class DetailedAssessments extends AppCompatActivity {
             textTitle.setText(title);
             startDateAssess.setText(startString);
             endDateAssess.setText(endString);
+            getSupportActionBar().setTitle("Edit Assessment");
+        } else {
+            getSupportActionBar().setTitle("Add Assessment");
         }
         startDateAssess.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,16 +253,16 @@ public class DetailedAssessments extends AppCompatActivity {
             if (repository.getAssessments().size() == 0) {
                 assessmentId = 1;
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
-                Toast.makeText(this, "Course has been added.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Assessment has been added.", Toast.LENGTH_LONG).show();
                 repository.insert(assessment);
             } else if (assessmentId != -1) {
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
-                Toast.makeText(this, "Course has been updated.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Assessment has been updated.", Toast.LENGTH_LONG).show();
                 repository.update(assessment);
             } else {
                 assessmentId = repository.getAssessments().get(repository.getAssessments().size() - 1).getAssessmentId() + 1;
                 Assessment assessment = new Assessment(assessmentId, title, finalStart, finalEnd, type, selectedCourse);
-                Toast.makeText(this, "Course has been added.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Assessment has been added.", Toast.LENGTH_LONG).show();
                 repository.insert(assessment);
             }
             Intent intent = new Intent(DetailedAssessments.this, AssessmentsList.class);
