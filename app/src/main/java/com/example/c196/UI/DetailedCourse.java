@@ -6,12 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.notification.StatusBarNotification;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,18 +59,19 @@ public class DetailedCourse extends AppCompatActivity {
 
     EditText courseStartDate, courseEndDate, courseTitle, courseNotes;
     Spinner courseStatus, courseInstructor, termCourseSpinner;
-    Button courseSaveBtn;
+    Button courseSaveBtn, startBtn, endBtn;
     Date startDate, endDate;
     String title;
     int instructorId, selectedInstructor, courseId, termId, selectedTerm;
     Course updatingCourse;
     Boolean existingCourse;
     ImageView shareNotes;
-    CheckBox checkBoxStart;
-    CheckBox checkBoxEnd;
+
+
     private TextView emptyView;
     private int id;
     int termNum;
+    String ctx;
 
     List<Assessment> allAssessments;
     List<Assessment> associatedAssessments;
@@ -100,6 +105,7 @@ public class DetailedCourse extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,8 +119,9 @@ public class DetailedCourse extends AppCompatActivity {
         courseNotes = findViewById(R.id.courseNotes);
         shareNotes = findViewById(R.id.shareNotes);
         courseSaveBtn = findViewById(R.id.courseSaveBtn);
-        checkBoxStart = findViewById(R.id.checkBoxStart);
-        checkBoxEnd = findViewById(R.id.checkBoxEnd);
+        startBtn = findViewById(R.id.startBtn);
+        endBtn = findViewById(R.id.endBtn);
+
 
         termId = getIntent().getIntExtra("termId", -1);
         instructorId = getIntent().getIntExtra("instructorId", -1);
@@ -176,7 +183,8 @@ public class DetailedCourse extends AppCompatActivity {
             }
         }
 
-
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] barNotifications = notificationManager.getActiveNotifications();
 
 
         /* Converting database value for start date to string */
@@ -280,6 +288,48 @@ public class DetailedCourse extends AppCompatActivity {
 
         });
 
+        startBtn.setOnClickListener(view -> {
+            //  String dateStart = courseStartDate.getText().toString();
+            //    String dateEnd = courseEndDate.getText().toString();
+            //    Date finalStart = null;
+            //    try {
+            //        finalStart = format1.parse(dateStart);
+            //    } catch (ParseException e) {
+            //        e.printStackTrace();
+            //   }
+
+            String dateStart = courseStartDate.getText().toString();
+            Date finalStart = null;
+            try {
+                finalStart = format1.parse(dateStart);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (finalStart == null) {
+                Toast.makeText(this, "Please enter a valid start date first.", Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                startNotification();
+                Toast.makeText(this, "Alert for course start date has been set.", Toast.LENGTH_LONG).show();
+            }
+        });
+        endBtn.setOnClickListener(view -> {
+            String dateEnd = courseEndDate.getText().toString();
+            Date finalEnd = null;
+            try {
+                finalEnd = format1.parse(dateEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (finalEnd == null) {
+                Toast.makeText(this, "Please enter a valid end date first.", Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                endNotification();
+                Toast.makeText(this, "Alert for course end date has been set.", Toast.LENGTH_LONG).show();
+            }
+        });
+
         /* Save button listener. */
         courseSaveBtn.setOnClickListener(view -> {
             String title = courseTitle.getText().toString();
@@ -310,12 +360,6 @@ public class DetailedCourse extends AppCompatActivity {
             if (courseInstructor == null) {
                 Toast.makeText(this, "Please add an instructor.", Toast.LENGTH_LONG).show();
                 return;
-            }
-            if (checkBoxStart.isChecked()) {
-                startNotification();
-            }
-            if (checkBoxEnd.isChecked()) {
-                endNotification();
             }
             if (repository.getCourses().size() == 0) {
                 courseId = 1;
@@ -365,6 +409,8 @@ public class DetailedCourse extends AppCompatActivity {
         PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+
+
     }
 
     /* Notification alert for end date on course */
@@ -382,6 +428,7 @@ public class DetailedCourse extends AppCompatActivity {
         PendingIntent sender = PendingIntent.getBroadcast(DetailedCourse.this, MainActivity.notificationAlertNumber++, intentNotification, PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, sender);
+
     }
 
     private void startDatePicker() {

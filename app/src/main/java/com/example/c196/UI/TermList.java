@@ -68,6 +68,7 @@ public class TermList extends AppCompatActivity {
         final TermAdapter adapter = new TermAdapter(this);
         recyclerView.setAdapter(adapter);
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter.setTerms(terms);
         if (terms.isEmpty()) {

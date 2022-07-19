@@ -50,7 +50,7 @@ public class DetailedAssessments extends AppCompatActivity {
     Spinner assessmentType, assessmentCourseSpinner;
     String type, title;
     int assessmentId, assessmentCourseId, selectedCourse;
-    Button saveBtn, deleteBtn;
+    Button saveBtn, deleteBtn, assessStartBtn, assessEndBtn;
     Date startDate, endDate;
     Assessment updatingAssessment;
     CheckBox assessStartCheckBtn;
@@ -101,8 +101,8 @@ public class DetailedAssessments extends AppCompatActivity {
         endDateAssess = findViewById(R.id.endDateAssess);
         assessmentType = findViewById(R.id.assessmentType);
         saveBtn = findViewById(R.id.saveBtn);
-        assessStartCheckBtn = findViewById(R.id.assessStartCheckBtn);
-        assessEndCheckBtn = findViewById(R.id.assessEndCheckBtn);
+        assessStartBtn = findViewById(R.id.assessStartBtn);
+        assessEndBtn = findViewById(R.id.assessEndBtn);
         assessmentId = getIntent().getIntExtra("id", -1);
         assessmentCourseId = getIntent().getIntExtra("cid", -1);
         title = getIntent().getStringExtra("title");
@@ -127,6 +127,12 @@ public class DetailedAssessments extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+        for (int i = 0; i < termAdapter.getCount(); i++) {
+            if (courseList.get(i).getCourseId() == assessmentCourseId) {
+                assessmentCourseSpinner.setSelection(i);
+                break;
+            }
+        }
 
         /* Array list for getting associated courses and displaying them in the
         associatedAssessmentCoursesView RecyclerView */
@@ -218,6 +224,38 @@ public class DetailedAssessments extends AppCompatActivity {
         int intStatus = typeAdapter.getPosition(currentStatus);
         assessmentType.setSelection(intStatus);
 
+        assessStartBtn.setOnClickListener(view -> {
+            String dateStart = startDateAssess.getText().toString();
+            Date finalStart = null;
+            try {
+                finalStart = format1.parse(dateStart);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (finalStart == null) {
+                Toast.makeText(this, "Please enter a valid start date first.", Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                startNotification();
+                Toast.makeText(this, "Alert for assessment start date has been set.", Toast.LENGTH_LONG).show();
+            }
+        });
+        assessEndBtn.setOnClickListener(view -> {
+            String dateEnd = endDateAssess.getText().toString();
+            Date finalEnd = null;
+            try {
+                finalEnd = format1.parse(dateEnd);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            if (finalEnd == null) {
+                Toast.makeText(this, "Please enter a valid end date first.", Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                endNotification();
+                Toast.makeText(this, "Alert for assessment end date has been set.", Toast.LENGTH_LONG).show();
+            }
+        });
         /* Save button */
         saveBtn.setOnClickListener(view -> {
             String title = textTitle.getText().toString();
@@ -243,12 +281,6 @@ public class DetailedAssessments extends AppCompatActivity {
             if (finalStart == null || finalEnd == null) {
                 Toast.makeText(this, "Please check your start and end date.", Toast.LENGTH_LONG).show();
                 return;
-            }
-            if (assessStartCheckBtn.isChecked()) {
-                startNotification();
-            }
-            if (assessEndCheckBtn.isChecked()) {
-                endNotification();
             }
             if (repository.getAssessments().size() == 0) {
                 assessmentId = 1;

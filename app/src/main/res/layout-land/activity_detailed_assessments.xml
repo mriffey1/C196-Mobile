@@ -176,26 +176,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-        <CheckBox
-            android:id="@+id/assessStartCheckBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="2dp"
-            android:text="Start Date"
-            app:layout_constraintStart_toEndOf="@+id/startDateAssess"
-            app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-        <CheckBox
-            android:id="@+id/assessEndCheckBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="2dp"
-            android:text="End Date"
-            app:layout_constraintStart_toEndOf="@+id/endDateAssess"
-            app:layout_constraintTop_toBottomOf="@+id/assessStartCheckBtn" />
-
         <TextView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
@@ -206,6 +186,27 @@
             android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/startLabel"
             app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+        <Button
+            android:id="@+id/assessStartBtn"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:text="Start Date"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/startDateAssess"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <Button
+            android:id="@+id/assessEndBtn"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="25dp"
+            android:text="End Date"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/endDateAssess"
+            app:layout_constraintTop_toBottomOf="@+id/assessStartBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
