@@ -2,4 +2,4 @@
 Android Studio - Java</br>
 
 **For Screen Shots, please see file:** </br>
-[Storyboard](../C196.pdf)
+[Storyboard](./C196.pdf)
